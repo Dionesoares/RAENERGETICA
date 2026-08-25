@@ -1,5 +1,6 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
+import Autoplay from "embla-carousel-autoplay";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { base44 } from "@/api/base44Client";
 import { waQuoteLink } from "@/lib/whatsapp";
@@ -10,9 +11,14 @@ const FALLBACK_BANNERS = [
     image_url: "/banners/powerbox.jpg",
     caption: "Cansado de ficar sem energia? Chegou o Powerbox",
   },
+  {
+    id: "fallback-locacao",
+    image_url: "/banners/locacao.jpg",
+    caption: "Locação de geradores para todos os segmentos — 11 anos entregando agilidade e confiança",
+  },
 ];
 
-const HIDDEN_BANNER_URLS = ["/banners/home-principal.png", "/banners/locacao.jpg"];
+const HIDDEN_BANNER_URLS = ["/banners/home-principal.png"];
 
 function isVisibleBanner(banner) {
   const url = String(banner?.image_url || "");
@@ -22,14 +28,25 @@ function isVisibleBanner(banner) {
 export default function Hero() {
   const [banners, setBanners] = useState(FALLBACK_BANNERS);
   const [selected, setSelected] = useState(0);
-  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, duration: 28 });
+  const autoplay = useRef(
+    Autoplay({ delay: 4000, stopOnInteraction: false, stopOnMouseEnter: true, stopOnFocusIn: false }),
+  );
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, duration: 28, align: "start" }, [autoplay.current]);
 
   useEffect(() => {
     let active = true;
     base44.entities.Banner.list("sort_order")
       .then((list) => {
         const visible = (list || []).filter(isVisibleBanner);
-        if (active && visible.length > 0) setBanners(visible);
+        if (!active) return;
+        if (visible.length >= 2) {
+          setBanners(visible);
+          return;
+        }
+        if (visible.length === 1) {
+          const extra = FALLBACK_BANNERS.filter((item) => item.image_url !== visible[0].image_url);
+          setBanners([...visible, ...extra]);
+        }
       })
       .catch(() => {});
     return () => {
@@ -43,20 +60,35 @@ export default function Hero() {
   }, [emblaApi]);
 
   useEffect(() => {
-    if (!emblaApi) return;
+    if (!emblaApi) return undefined;
     emblaApi.reInit();
     onSelect();
     emblaApi.on("select", onSelect);
-    return () => emblaApi.off("select", onSelect);
+    emblaApi.on("reInit", onSelect);
+    autoplay.current.play();
+    return () => {
+      emblaApi.off("select", onSelect);
+      emblaApi.off("reInit", onSelect);
+    };
   }, [emblaApi, banners, onSelect]);
 
   useEffect(() => {
-    if (!emblaApi || banners.length < 2) return undefined;
-    const id = setInterval(() => emblaApi.scrollNext(), 4000);
-    return () => clearInterval(id);
-  }, [emblaApi, banners.length]);
+    if (!emblaApi) return undefined;
+    const restart = () => {
+      emblaApi.reInit();
+      autoplay.current.play();
+    };
+    const images = emblaApi.rootNode().querySelectorAll("img");
+    images.forEach((img) => {
+      if (!img.complete) img.addEventListener("load", restart);
+    });
+    return () => {
+      images.forEach((img) => img.removeEventListener("load", restart));
+    };
+  }, [emblaApi, banners]);
 
   const currentCaption = banners[selected]?.caption;
+  const showControls = banners.length > 1;
 
   return (
     <section id="top" className="relative bg-primary">
@@ -65,7 +97,7 @@ export default function Hero() {
           <div className="flex">
             {banners.map((banner) => (
               <div key={banner.id} className="relative min-w-0 shrink-0 grow-0 basis-full">
-                <div className="relative h-[220px] w-full overflow-hidden bg-[#0b1c3d] px-3 sm:h-[360px] sm:px-4 md:h-[480px] lg:h-[620px] lg:px-6">
+                <div className="relative h-[280px] w-full overflow-hidden bg-[#0b1c3d] sm:h-[440px] md:h-[580px] lg:h-[740px] xl:h-[860px]">
                   <img
                     src={banner.image_url}
                     alt={banner.caption || "Banner RA Energética"}
@@ -77,7 +109,7 @@ export default function Hero() {
           </div>
         </div>
 
-        {banners.length > 1 && (
+        {showControls && (
           <>
             <button
               type="button"
