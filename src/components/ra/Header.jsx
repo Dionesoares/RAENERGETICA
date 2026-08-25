@@ -82,7 +82,7 @@ export default function Header() {
             <button
               type="button"
               onClick={() => setLoginOpen(true)}
-              className="flex min-w-0 items-center justify-center border-r border-black/10 px-3 py-2.5 hover:bg-white/60 sm:min-w-[90px] sm:px-4"
+              className="ml-auto hidden min-w-0 items-center justify-center border-r border-black/10 px-3 py-2.5 hover:bg-white/60 sm:min-w-[90px] sm:px-4 lg:flex"
             >
               <span className="text-sm font-extrabold uppercase text-primary">Login</span>
             </button>
@@ -101,7 +101,7 @@ export default function Header() {
 
       <div className="border-t border-black/5 bg-[#f4f6f8]">
         <div className="mx-auto flex max-w-[1400px] items-center justify-between gap-4 px-4 py-3 lg:px-6">
-          <a href="#top" className="min-w-0 max-w-[70%] shrink sm:max-w-none">
+          <a href="#top" className="min-w-0 max-w-[calc(100%-8.5rem)] shrink sm:max-w-none">
             <Logo compact />
           </a>
 
@@ -118,14 +118,23 @@ export default function Header() {
             ))}
           </nav>
 
-          <button
-            type="button"
-            className="grid h-11 w-11 place-items-center rounded-md text-primary lg:hidden"
-            aria-label={open ? "Fechar menu" : "Abrir menu"}
-            onClick={() => setOpen((value) => !value)}
-          >
-            {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </button>
+          <div className="ml-auto flex shrink-0 items-center gap-1 lg:hidden">
+            <button
+              type="button"
+              onClick={() => setLoginOpen(true)}
+              className="grid h-11 place-items-center rounded-md px-3 text-sm font-extrabold uppercase text-primary"
+            >
+              Login
+            </button>
+            <button
+              type="button"
+              className="grid h-11 w-11 place-items-center rounded-md text-primary"
+              aria-label={open ? "Fechar menu" : "Abrir menu"}
+              onClick={() => setOpen((value) => !value)}
+            >
+              {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </button>
+          </div>
         </div>
 
         {open && (
