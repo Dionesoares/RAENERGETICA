@@ -28,7 +28,7 @@ const contacts = [
 ];
 
 const navLinks = [
-  { label: "Produtos", href: "#geradores", dropdown: true },
+  { label: "Nossos Geradores", href: "#geradores", dropdown: true },
   { label: "Serviços", href: "#sobre" },
   { label: "A RA Energética", href: "#sobre", dropdown: true },
   { label: "Contato", href: "#contato", dropdown: true },
