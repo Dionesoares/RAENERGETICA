@@ -47,7 +47,7 @@ export default function AreasOfActivity() {
           <p className="text-xs font-bold uppercase tracking-[0.22em] text-sky-300">RA Energética Geradores</p>
           <h2 className="mt-3 font-heading text-3xl font-extrabold sm:text-4xl lg:text-5xl">Áreas de Atuação</h2>
           <p className="mx-auto mt-3 max-w-2xl text-sm text-white/70 sm:text-base">
-            Clique em um card para ver a descrição daquele serviço. As imagens aparecem por completo, sem corte.
+            Clique em um card para ver as imagens e a descrição daquele serviço.
           </p>
         </motion.div>
 
@@ -63,12 +63,6 @@ export default function AreasOfActivity() {
                   open ? "border-sky-400/70" : "border-white/10 hover:border-sky-400/40"
                 }`}
               >
-                {area.image && !open && (
-                  <button type="button" onClick={() => setOpenId(area.id)} className="block w-full bg-black/30 p-2">
-                    <AreaImage src={area.image} alt={area.title} />
-                  </button>
-                )}
-
                 <button
                   type="button"
                   aria-expanded={open}
@@ -97,15 +91,8 @@ export default function AreasOfActivity() {
                       className="overflow-hidden"
                     >
                       <div className="border-t border-white/10 px-4 pb-5 pt-4">
-                        <h4 className="font-heading text-xl font-extrabold leading-snug text-white">
-                          {area.title}
-                        </h4>
-                        <p className="mt-1 text-sm font-semibold uppercase tracking-wide text-sky-300">
-                          {area.kicker}
-                        </p>
-
                         {images.length > 0 && (
-                          <div className={`mt-4 grid gap-3 ${images.length > 1 ? "grid-cols-1" : "grid-cols-1"}`}>
+                          <div className="grid gap-3">
                             {images.map((src) => (
                               <AreaImage key={src} src={src} alt={area.title} featured />
                             ))}
