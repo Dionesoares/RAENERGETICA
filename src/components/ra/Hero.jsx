@@ -59,6 +59,23 @@ export default function Hero() {
     setSelected(emblaApi.selectedScrollSnap());
   }, [emblaApi]);
 
+  const syncMobileHeight = useCallback(() => {
+    if (!emblaApi) return;
+    const viewport = emblaApi.rootNode();
+    if (window.matchMedia("(min-width: 1024px)").matches) {
+      viewport.style.height = "";
+      return;
+    }
+    const slide = emblaApi.slideNodes()[emblaApi.selectedScrollSnap()];
+    const img = slide?.querySelector("img");
+    if (!img) return;
+    const apply = () => {
+      viewport.style.height = `${Math.round(img.getBoundingClientRect().height)}px`;
+    };
+    if (img.complete && img.naturalHeight) apply();
+    else img.addEventListener("load", apply, { once: true });
+  }, [emblaApi, selected, banners]);
+
   useEffect(() => {
     if (!emblaApi) return undefined;
     emblaApi.reInit();
@@ -77,6 +94,7 @@ export default function Hero() {
     const restart = () => {
       emblaApi.reInit();
       autoplay.current.play();
+      requestAnimationFrame(syncMobileHeight);
     };
     const images = emblaApi.rootNode().querySelectorAll("img");
     images.forEach((img) => {
@@ -85,23 +103,29 @@ export default function Hero() {
     return () => {
       images.forEach((img) => img.removeEventListener("load", restart));
     };
-  }, [emblaApi, banners]);
+  }, [emblaApi, banners, syncMobileHeight]);
+
+  useEffect(() => {
+    syncMobileHeight();
+    window.addEventListener("resize", syncMobileHeight);
+    return () => window.removeEventListener("resize", syncMobileHeight);
+  }, [syncMobileHeight]);
 
   const currentCaption = banners[selected]?.caption;
   const showControls = banners.length > 1;
 
   return (
-    <section id="top" className="relative bg-primary">
+    <section id="top" className="relative overflow-x-hidden bg-primary">
       <div className="relative">
-        <div className="overflow-hidden" ref={emblaRef}>
-          <div className="flex">
+        <div className="overflow-hidden transition-[height] duration-300" ref={emblaRef}>
+          <div className="flex items-start lg:items-stretch">
             {banners.map((banner) => (
               <div key={banner.id} className="relative min-w-0 shrink-0 grow-0 basis-full">
-                <div className="relative h-[280px] w-full overflow-hidden bg-[#0b1c3d] sm:h-[440px] md:h-[580px] lg:h-[740px] xl:h-[860px]">
+                <div className="relative w-full bg-[#0b1c3d] lg:h-[740px] lg:overflow-hidden xl:h-[860px]">
                   <img
                     src={banner.image_url}
                     alt={banner.caption || "Banner RA Energética"}
-                    className="h-full w-full object-contain object-center"
+                    className="block h-auto w-full max-w-full object-contain object-center lg:h-full"
                   />
                 </div>
               </div>
