@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { MapPin, Mail, Phone, MessageCircle } from "lucide-react";
-import { waLink } from "@/lib/whatsapp";
+import { waQuoteLink } from "@/lib/whatsapp";
 
 const MAP_QUERY = encodeURIComponent("Quadra Alc-so 141 Mirante do Lago Alameda Cerejeira Plano Diretor Sul Palmas TO");
 
@@ -56,8 +56,8 @@ export default function Contact() {
                   <div>
                     <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">E-mails</div>
                     <p className="mt-1 font-medium text-foreground">
-                      <a href="mailto:comercial@raenergetica.com.br" className="hover:text-accent">comercial@raenergetica.com.br</a><br />
-                      <a href="mailto:producao@raenergetica.com.br" className="hover:text-accent">producao@raenergetica.com.br</a>
+                      <a href="mailto:Ricardo@raeneregetica.com.br" className="hover:text-accent">Ricardo@raeneregetica.com.br</a><br />
+                      <a href="mailto:dallessandro@raenergetica.com.br" className="hover:text-accent">dallessandro@raenergetica.com.br</a>
                     </p>
                   </div>
                 </div>
@@ -68,13 +68,16 @@ export default function Contact() {
                   </div>
                   <div>
                     <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Comercial</div>
-                    <p className="mt-1 font-medium text-foreground">(63) 99911-8060</p>
+                    <p className="mt-1 font-medium text-foreground">
+                      <a href="tel:+5563999938060" className="hover:text-accent">(63) 99993-8060</a><br />
+                      <a href="tel:+5563992282251" className="hover:text-accent">(63) 99228-2251</a>
+                    </p>
                   </div>
                 </div>
               </div>
 
               <a
-                href={waLink()}
+                href={waQuoteLink()}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="mt-8 flex min-h-[56px] w-full items-center justify-center gap-2 rounded-full bg-primary px-6 text-base font-semibold text-primary-foreground shadow-lg shadow-primary/30 transition-transform hover:scale-[1.02]">

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { MessageCircle, ArrowDown, Plug } from "lucide-react";
 import { Image } from "@/components/ui/image";
-import { waLink } from "@/lib/whatsapp";
+import { waQuoteLink } from "@/lib/whatsapp";
 
 const heroImg = "https://media.base44.com/images/public/6a7e084b2a4955a8b5e1cb3d/3f01a8ce6_ChatGPTImage17deagode202612_59_25.png";
 
@@ -22,7 +22,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section id="top" className="relative min-h-[100svh] overflow-hidden pt-28">
+    <section id="top" className="relative min-h-[100svh] overflow-hidden pt-8">
       {/* background grid + gradient */}
       <div className="absolute inset-0 grid-lines [mask-image:radial-gradient(ellipse_at_center,black,transparent_75%)]" />
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/60 to-background" />
@@ -74,7 +74,7 @@ export default function Hero() {
             className="mt-8 flex flex-wrap items-center gap-4">
             
             <a
-              href={waLink()}
+              href={waQuoteLink()}
               target="_blank"
               rel="noopener noreferrer"
               className="group flex min-h-[56px] items-center gap-2 rounded-full bg-primary px-7 text-base font-semibold text-primary-foreground shadow-xl shadow-primary/30 transition-transform hover:scale-[1.03]">

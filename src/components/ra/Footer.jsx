@@ -39,10 +39,10 @@ export default function Footer() {
           <div>
             <h3 className="font-heading text-sm font-bold uppercase tracking-widest text-white/90">Contatos</h3>
             <ul className="mt-5 space-y-3 text-sm text-white/70">
-              <li className="flex items-center gap-2"><Mail className="h-4 w-4 text-accent" /> comercial@raenergetica.com.br</li>
-              <li className="flex items-center gap-2"><Mail className="h-4 w-4 text-accent" /> producao@raenergetica.com.br</li>
-              <li className="flex items-center gap-2"><Phone className="h-4 w-4 text-accent" /> Comercial (63) 99911-8060</li>
-              <li className="flex items-center gap-2"><Phone className="h-4 w-4 text-accent" /> Comercial (63) 9993-8060</li>
+              <li className="flex items-center gap-2"><Mail className="h-4 w-4 text-accent" /> Ricardo@raeneregetica.com.br</li>
+              <li className="flex items-center gap-2"><Mail className="h-4 w-4 text-accent" /> dallessandro@raenergetica.com.br</li>
+              <li className="flex items-center gap-2"><Phone className="h-4 w-4 text-accent" /> (63) 99993-8060</li>
+              <li className="flex items-center gap-2"><Phone className="h-4 w-4 text-accent" /> (63) 99228-2251</li>
             </ul>
           </div>
 
