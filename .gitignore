@@ -36,3 +36,8 @@ Raenergeitica Public/
 .supabase-db-password
 .supabase-keys.json
 supabase/.temp/
+.vercel/
+
+.vercel
+.env*
+!.env.example
