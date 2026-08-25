@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Phone, Handshake, Menu, X, ChevronDown } from "lucide-react";
+import { Phone, Menu, X, ChevronDown } from "lucide-react";
 import { Link } from "react-router-dom";
 import Logo from "./Logo";
 import { waQuoteLink } from "@/lib/whatsapp";
@@ -30,7 +30,7 @@ const contacts = [
 const navLinks = [
   { label: "Nossos Geradores", href: "#geradores", dropdown: true },
   { label: "Serviços", href: "#sobre" },
-  { label: "A RA Energética", href: "#sobre", dropdown: true },
+  { label: "Sobre Nós", href: "#sobre", dropdown: true },
   { label: "Contato", href: "#contato", dropdown: true },
 ];
 
@@ -80,13 +80,9 @@ export default function Header() {
 
             <Link
               to="/admin/login"
-              className="flex min-w-[140px] items-center gap-2 border-r border-black/10 px-4 py-2.5 hover:bg-white/60"
+              className="flex min-w-[90px] items-center justify-center border-r border-black/10 px-4 py-2.5 hover:bg-white/60"
             >
-              <Handshake className="h-8 w-8 shrink-0 text-primary" strokeWidth={1.4} />
-              <span className="leading-tight">
-                <span className="block text-[10px] font-semibold uppercase tracking-wide text-[#8a8a8a]">Área do</span>
-                <span className="block text-sm font-extrabold uppercase text-primary">Cliente</span>
-              </span>
+              <span className="text-sm font-extrabold uppercase text-primary">Login</span>
             </Link>
           </div>
         </div>
@@ -155,7 +151,7 @@ export default function Header() {
               onClick={() => setOpen(false)}
               className="mt-2 block rounded-md border border-primary px-4 py-3 text-center text-sm font-bold uppercase text-primary"
             >
-              Área do cliente
+              Login
             </Link>
           </nav>
         )}

@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { Image } from "@/components/ui/image";
 import { CheckCircle2 } from "lucide-react";
 
-const aboutImg = "https://media.base44.com/images/public/6a7e084b2a4955a8b5e1cb3d/91cb5639a_generated_9715fd52.png";
+const aboutImg = "/about/sobre-nos.jpg";
 
 const points = [
 "Geradores de 50 a 500 kVA para eventos de todos os portes",
@@ -35,10 +35,10 @@ export default function About() {
             className="relative">
             
             <div className="relative overflow-hidden rounded-3xl shadow-2xl shadow-primary/15">
-              <div className="aspect-[4/3] w-full">
-                <Image src={aboutImg} alt="Equipe técnica RA Energética" fittingType="fill" className="h-full w-full" />
+              <div className="aspect-[16/10] w-full">
+                <Image src={aboutImg} alt="Estrutura e frota RA Energética" fittingType="fill" className="h-full w-full object-cover" />
               </div>
-              <div className="absolute inset-0 bg-gradient-to-t from-primary/50 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-primary/30 to-transparent" />
             </div>
             <div className="glass absolute -bottom-6 -right-4 rounded-2xl px-6 py-4 shadow-xl sm:right-8">
               <div className="font-heading text-3xl font-extrabold text-primary">+10 anos</div>
