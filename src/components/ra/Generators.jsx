@@ -40,7 +40,7 @@ export default function Generators() {
       <div className="mt-14">
         <h3 className="font-heading text-2xl font-extrabold text-slate-900 sm:text-3xl lg:text-4xl">Locação por potência</h3>
         <p className="mt-2 text-muted-foreground">
-          Clique no card para ver a aplicação típica e solicitar a cotação no próprio cartão.
+          Clique no card para ver a aplicação típica e solicitar a cotação.
         </p>
 
         <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">

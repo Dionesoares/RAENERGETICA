@@ -44,10 +44,9 @@ export default function AreasOfActivity() {
           viewport={{ once: true }}
           className="mb-10 text-center"
         >
-          <p className="text-xs font-bold uppercase tracking-[0.22em] text-sky-300">RA Energética Geradores</p>
-          <h2 className="mt-3 font-heading text-3xl font-extrabold sm:text-4xl lg:text-5xl">Áreas de Atuação</h2>
+          <h2 className="font-heading text-3xl font-extrabold sm:text-4xl lg:text-5xl">Áreas de Atuação</h2>
           <p className="mx-auto mt-3 max-w-2xl text-sm text-white/70 sm:text-base">
-            Clique em um card para ver as imagens e a descrição daquele serviço.
+            Conheça nossos serviços
           </p>
         </motion.div>
 

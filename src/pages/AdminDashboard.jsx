@@ -1,12 +1,35 @@
 import React, { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import { format, isSameDay } from "date-fns";
-import { Plus, CheckCircle2, Circle, Trash2 } from "lucide-react";
+import { Plus, CheckCircle2, Circle, Trash2, Landmark, FilePenLine, Building2, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import MiniCalendar from "@/components/admin/MiniCalendar";
 import TaskModal from "@/components/admin/TaskModal";
 
 const priorityColor = { alta: "bg-destructive/10 text-destructive", media: "bg-accent/10 text-accent", baixa: "bg-secondary text-muted-foreground" };
+
+const GOVERNMENT_LINKS = [
+  {
+    label: "e-CAC Receita Federal",
+    href: "https://cav.receita.fazenda.gov.br/autenticacao/login",
+    icon: Landmark,
+  },
+  {
+    label: "Gov.br — Assinar contratos",
+    href: "https://sso.acesso.gov.br/login?client_id=www.gov.br&authorization_id=1a03aafff49",
+    icon: FilePenLine,
+  },
+  {
+    label: "Sefaz TO",
+    href: "https://www.to.gov.br/sefaz",
+    icon: Building2,
+  },
+  {
+    label: "Sintegra",
+    href: "https://www.sintegra.gov.br/",
+    icon: Search,
+  },
+];
 
 export default function AdminDashboard() {
   const [tasks, setTasks] = useState([]);
@@ -44,6 +67,24 @@ export default function AdminDashboard() {
   return (
     <div>
       <h1 className="mb-6 text-2xl font-bold text-primary">Dashboard</h1>
+
+      <div className="mb-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+        {GOVERNMENT_LINKS.map((link) => (
+          <a
+            key={link.href}
+            href={link.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-3 rounded-2xl border border-border bg-white px-4 py-3 text-sm font-semibold text-primary shadow-sm transition-colors hover:border-primary hover:bg-secondary"
+          >
+            <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-primary/10 text-primary">
+              <link.icon className="h-5 w-5" />
+            </span>
+            {link.label}
+          </a>
+        ))}
+      </div>
+
       <div className="grid gap-6 lg:grid-cols-[320px_1fr]">
         <MiniCalendar taskDates={tasks.map((t) => t.date)} selectedDate={selectedDate} onSelectDate={setSelectedDate} />
 

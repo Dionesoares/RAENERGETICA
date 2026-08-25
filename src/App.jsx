@@ -22,6 +22,7 @@ import AdminProducts from '@/pages/AdminProducts';
 import AdminBanners from '@/pages/AdminBanners';
 import AdminTechnicians from '@/pages/AdminTechnicians';
 import AdminServiceReports from '@/pages/AdminServiceReports';
+import AdminUsers from '@/pages/AdminUsers';
 import TecnicoLogin from '@/pages/TecnicoLogin';
 import TecnicoLayout from '@/components/tecnico/TecnicoLayout';
 import TecnicoChamados from '@/pages/TecnicoChamados';
@@ -58,6 +59,7 @@ const AuthenticatedApp = () => {
           <Route path="banners" element={<AdminBanners />} />
           <Route path="tecnicos" element={<AdminTechnicians />} />
           <Route path="relatorios" element={<AdminServiceReports />} />
+          <Route path="usuarios" element={<AdminUsers />} />
         </Route>
       </Route>
       <Route path="/tecnico/login" element={<TecnicoLogin />} />

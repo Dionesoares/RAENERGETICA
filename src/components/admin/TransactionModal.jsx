@@ -7,7 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 
 const empty = {
   type: "entrada", description: "", category: "", amount: "", date: "",
-  payment_method: "", client_id: "",
+  payment_method: "", client_id: "", status: "pago",
 };
 
 export default function TransactionModal({ open, onOpenChange, transaction, clients, onSave }) {
@@ -67,6 +67,16 @@ export default function TransactionModal({ open, onOpenChange, transaction, clie
               <Label>Forma de Pagamento</Label>
               <Input value={form.payment_method} onChange={set("payment_method")} placeholder="Pix, Boleto..." />
             </div>
+          </div>
+          <div className="space-y-1">
+            <Label>Situação</Label>
+            <Select value={form.status || "pago"} onValueChange={(v) => setForm((f) => ({ ...f, status: v }))}>
+              <SelectTrigger><SelectValue /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="pago">Pago</SelectItem>
+                <SelectItem value="pendente">Pendente</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
           <div className="space-y-1">
             <Label>Cliente (opcional)</Label>

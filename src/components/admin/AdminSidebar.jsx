@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { LayoutDashboard, Wallet, Users, FileText, LogOut, Package, X, Wrench, ClipboardList, Images } from "lucide-react";
+import { LayoutDashboard, Wallet, Users, FileText, LogOut, Package, X, Wrench, ClipboardList, Images, UserPlus } from "lucide-react";
 import { useAuth } from "@/lib/AuthContext";
 import Logo from "@/components/ra/Logo";
 
@@ -13,6 +13,7 @@ const items = [
   { label: "Banners", to: "/admin/banners", icon: Images },
   { label: "Técnicos", to: "/admin/tecnicos", icon: Wrench },
   { label: "Relatórios", to: "/admin/relatorios", icon: ClipboardList },
+  { label: "Cadastrar usuário", to: "/admin/usuarios", icon: UserPlus },
 ];
 
 export default function AdminSidebar({ open, onClose }) {

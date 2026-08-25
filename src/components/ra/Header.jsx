@@ -42,16 +42,16 @@ export default function Header() {
     <header className="sticky top-0 z-50 w-full shadow-md">
       <div className="bg-[#ececec]">
         <div className="mx-auto hidden max-w-[1400px] lg:flex">
-          <div className="hidden min-w-[230px] flex-col justify-center bg-primary px-5 py-3 text-white lg:flex">
-            <div className="flex items-center gap-2 text-sm font-semibold">
-              <Phone className="h-4 w-4 fill-current text-[#E3231C]" />
+          <div className="hidden w-[250px] shrink-0 flex-col items-center justify-center bg-primary px-4 py-3 text-white lg:flex">
+            <span className="relative text-center text-sm font-semibold">
+              <Phone
+                aria-hidden
+                className="pointer-events-none absolute right-[calc(100%+8px)] top-1/2 h-4 w-4 -translate-y-1/2 fill-current text-[#E3231C]"
+              />
               Fale Conosco
-            </div>
-            <a href="#contato" className="mt-1 text-[11px] leading-tight text-white/85 hover:text-white">
-              Localize a RA Energética perto de você
-            </a>
-            <a href="#sobre" className="text-[11px] leading-tight text-white/85 hover:text-white">
-              Geradores
+            </span>
+            <a href="#contato" className="mt-1 text-center text-[11px] leading-tight text-white/85 hover:text-white">
+              Nossa localização
             </a>
           </div>
 

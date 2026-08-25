@@ -257,6 +257,15 @@ export const base44 = {
         if (data?.error) throw new Error(data.error);
         return data;
       }
+      if (name === "sendAdminAccess") {
+        const client = requireSupabase();
+        const { data, error } = await client.functions.invoke("send-admin-access", {
+          body: payload,
+        });
+        if (error) throw error;
+        if (data?.error) throw new Error(data.error);
+        return data;
+      }
       throw new Error(`Function not found: ${name}`);
     },
   },
