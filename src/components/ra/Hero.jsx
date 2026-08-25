@@ -52,7 +52,7 @@ export default function Hero() {
 
   useEffect(() => {
     if (!emblaApi || banners.length < 2) return undefined;
-    const id = setInterval(() => emblaApi.scrollNext(), 6500);
+    const id = setInterval(() => emblaApi.scrollNext(), 4000);
     return () => clearInterval(id);
   }, [emblaApi, banners.length]);
 
