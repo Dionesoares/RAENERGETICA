@@ -29,7 +29,7 @@ const contacts = [
 
 const navLinks = [
   { label: "Nossos Geradores", href: "#geradores", dropdown: true },
-  { label: "Serviços", href: "#sobre" },
+  { label: "Áreas de Atuação", href: "#atuacao" },
   { label: "Sobre Nós", href: "#sobre", dropdown: true },
   { label: "Contato", href: "#contato", dropdown: true },
 ];

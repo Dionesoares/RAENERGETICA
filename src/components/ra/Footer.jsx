@@ -79,10 +79,10 @@ export default function Footer() {
             initial={{ opacity: 0, scale: 0.5, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.5, y: 20 }}
-            className="fixed bottom-6 right-6 z-50 hidden items-center gap-2 rounded-full bg-accent px-5 py-3.5 font-semibold text-primary shadow-2xl shadow-accent/40 md:flex"
+            className="fixed bottom-20 right-4 z-50 flex items-center gap-2 rounded-full bg-[#25D366] px-5 py-3.5 font-semibold text-white shadow-2xl shadow-emerald-700/40 hover:bg-[#20bd5a] md:bottom-6 md:right-6"
           >
             <MessageCircle className="h-5 w-5" />
-            <span className="hidden text-sm sm:inline">Suporte Direto</span>
+            <span className="text-sm uppercase">Contato via WhatsApp</span>
           </motion.a>
         )}
       </AnimatePresence>

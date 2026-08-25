@@ -1,14 +1,39 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Image } from "@/components/ui/image";
-import { CheckCircle2 } from "lucide-react";
+import { CheckCircle2, Eye, Gem, Target } from "lucide-react";
 
 const aboutImg = "/about/sobre-nos.jpg";
 
 const points = [
-"Geradores de 50 a 500 kVA para eventos de todos os portes",
-"Estrutura para shows, espetáculos e eventos empresariais",
-"Energia garantida do início ao fim do evento"];
+  "Geradores de 50 a 500 kVA para eventos de todos os portes",
+  "Estrutura para shows, espetáculos e eventos empresariais",
+  "Energia garantida do início ao fim do evento",
+];
+
+const pillars = [
+  {
+    icon: Target,
+    title: "Missão",
+    text: "Entregar soluções eficientes e inovadoras que geram valor e resultados para nossos clientes.",
+  },
+  {
+    icon: Eye,
+    title: "Visão",
+    text: "Ser referência no mercado de locação de geradores, reconhecida pela excelência, confiança e profissionalismo.",
+  },
+  {
+    icon: Gem,
+    title: "Valores",
+    text: "Ética, inovação, compromisso com resultados, respeito às pessoas e foco no cliente.",
+  },
+];
+
+const objectives = [
+  "Expandir nossa presença no mercado.",
+  "Aumentar os resultados e a satisfação dos clientes.",
+  "Otimizar processos e garantir eficiência.",
+];
 
 
 export default function About() {
@@ -86,14 +111,62 @@ export default function About() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="mx-auto mt-16 max-w-3xl text-justify text-base leading-relaxed text-muted-foreground sm:text-lg">
-          
           Nosso objetivo é modelar e promover um padrão de profissionalismo e qualidade integrado.
           Conseguimos atingir esse objetivo por meio de nossos valores fundamentais: integração,
           experiência e agilidade. Cada profissional, dos técnicos ao administrativo, dedica-se a
           atender às demandas do seu negócio — damos o nosso melhor para que você tenha uma
           experiência positiva conosco.
         </motion.p>
-      </div>
-    </section>);
 
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mt-16 overflow-hidden rounded-3xl border border-primary/10 bg-white px-4 py-10 shadow-sm sm:px-8 sm:py-12"
+        >
+          <div className="grid gap-10 md:grid-cols-3 md:gap-0">
+            {pillars.map((item, index) => (
+              <div
+                key={item.title}
+                className={`px-2 text-center md:px-8 ${
+                  index > 0 ? "md:border-l md:border-primary/15" : ""
+                }`}
+              >
+                <item.icon className="mx-auto h-12 w-12 text-primary" strokeWidth={1.5} />
+                <h3 className="mt-4 font-heading text-xl font-extrabold uppercase tracking-wide text-primary">
+                  {item.title}
+                </h3>
+                <p className="mt-3 text-sm leading-relaxed text-slate-600 sm:text-base">{item.text}</p>
+              </div>
+            ))}
+          </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mt-10 overflow-hidden rounded-3xl border border-primary/10 bg-white px-4 py-10 shadow-sm sm:px-8 sm:py-12"
+        >
+          <h3 className="text-center font-heading text-2xl font-extrabold uppercase tracking-wide text-primary sm:text-3xl">
+            Nossos Objetivos
+          </h3>
+          <div className="mx-auto mt-2 h-px w-24 bg-primary" />
+          <div className="mt-8 grid items-center gap-8 md:grid-cols-[160px_1fr]">
+            <Target className="mx-auto h-24 w-24 text-primary" strokeWidth={1.4} />
+            <ul className="space-y-4">
+              {objectives.map((item) => (
+                <li key={item} className="flex items-start gap-3">
+                  <span className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-primary text-white">
+                    <CheckCircle2 className="h-4 w-4" />
+                  </span>
+                  <span className="text-base text-slate-700 sm:text-lg">{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
 }

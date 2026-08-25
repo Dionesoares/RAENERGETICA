@@ -10,12 +10,14 @@ const FALLBACK_BANNERS = [
     image_url: "/banners/powerbox.jpg",
     caption: "Cansado de ficar sem energia? Chegou o Powerbox",
   },
-  {
-    id: "fallback-locacao",
-    image_url: "/banners/locacao.jpg",
-    caption: "Locação de geradores para todos os segmentos — 11 anos entregando agilidade e confiança",
-  },
 ];
+
+const HIDDEN_BANNER_URLS = ["/banners/home-principal.png", "/banners/locacao.jpg"];
+
+function isVisibleBanner(banner) {
+  const url = String(banner?.image_url || "");
+  return banner?.active !== false && url && !HIDDEN_BANNER_URLS.some((hidden) => url.includes(hidden));
+}
 
 export default function Hero() {
   const [banners, setBanners] = useState(FALLBACK_BANNERS);
@@ -26,7 +28,7 @@ export default function Hero() {
     let active = true;
     base44.entities.Banner.list("sort_order")
       .then((list) => {
-        const visible = (list || []).filter((item) => item.active !== false && item.image_url);
+        const visible = (list || []).filter(isVisibleBanner);
         if (active && visible.length > 0) setBanners(visible);
       })
       .catch(() => {});
@@ -63,11 +65,11 @@ export default function Hero() {
           <div className="flex">
             {banners.map((banner) => (
               <div key={banner.id} className="relative min-w-0 shrink-0 grow-0 basis-full">
-                <div className="relative h-[200px] w-full bg-[#0b1c3d] sm:h-[320px] md:h-[420px] lg:h-[560px]">
+                <div className="relative h-[220px] w-full overflow-hidden bg-[#0b1c3d] px-3 sm:h-[360px] sm:px-4 md:h-[480px] lg:h-[620px] lg:px-6">
                   <img
                     src={banner.image_url}
                     alt={banner.caption || "Banner RA Energética"}
-                    className="absolute inset-0 h-full w-full object-contain"
+                    className="h-full w-full object-contain object-center"
                   />
                 </div>
               </div>

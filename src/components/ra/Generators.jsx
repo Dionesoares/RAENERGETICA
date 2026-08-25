@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { MessageCircle } from "lucide-react";
+import { ChevronDown, MessageCircle } from "lucide-react";
 import { waLink } from "@/lib/whatsapp";
 import { generatorsByPower, generatorUseCases } from "@/lib/equipmentList";
 
@@ -9,17 +9,9 @@ const quoteMessage = (generator) =>
 
 export default function Generators() {
   const [selectedKva, setSelectedKva] = useState(null);
-  const detailRef = useRef(null);
-  const selected = generatorsByPower.find((item) => item.kva === selectedKva);
-
-  useEffect(() => {
-    if (selected && detailRef.current) {
-      detailRef.current.scrollIntoView({ behavior: "smooth", block: "nearest" });
-    }
-  }, [selected]);
 
   return (
-    <section id="geradores" className="relative mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-24">
+    <section id="geradores" className="relative mx-auto max-w-7xl scroll-mt-28 px-4 py-12 sm:px-6 sm:py-24">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -48,62 +40,66 @@ export default function Generators() {
       <div className="mt-14">
         <h3 className="font-heading text-2xl font-extrabold text-slate-900 sm:text-3xl lg:text-4xl">Locação por potência</h3>
         <p className="mt-2 text-muted-foreground">
-          Cada potência tem página própria com aplicação típica e cotação de locação.
+          Clique no card para ver a aplicação típica e solicitar a cotação no próprio cartão.
         </p>
 
-        <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
+        <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
           {generatorsByPower.map((generator) => {
             const active = selectedKva === generator.kva;
             return (
-              <button
+              <article
                 key={generator.kva}
-                type="button"
-                aria-expanded={active}
-                onClick={() => setSelectedKva(active ? null : generator.kva)}
-                className={`min-h-[56px] rounded-lg border px-3 py-3 text-center text-sm font-semibold transition-colors ${
+                className={`overflow-hidden rounded-2xl border bg-white shadow-sm transition-shadow ${
                   active
-                    ? "border-primary bg-primary text-white"
-                    : "border-slate-200 bg-white text-slate-900 hover:border-primary/50 hover:bg-slate-50"
+                    ? "col-span-1 border-primary shadow-md sm:col-span-2"
+                    : "border-slate-200 hover:border-primary/40"
                 }`}
               >
-                {generator.title}
-              </button>
+                <button
+                  type="button"
+                  aria-expanded={active}
+                  onClick={() => setSelectedKva(active ? null : generator.kva)}
+                  className={`flex min-h-[56px] w-full items-center justify-between gap-3 px-4 py-3 text-left text-sm font-semibold ${
+                    active ? "bg-primary text-white" : "bg-white text-slate-900"
+                  }`}
+                >
+                  <span>{generator.title}</span>
+                  <ChevronDown className={`h-4 w-4 shrink-0 transition-transform ${active ? "rotate-180" : ""}`} />
+                </button>
+
+                <AnimatePresence initial={false}>
+                  {active && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.22 }}
+                      className="overflow-hidden"
+                    >
+                      <div className="border-t border-slate-100 px-4 py-4">
+                        <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                          {generator.kva} kVA
+                        </p>
+                        <p className="mt-2 text-sm leading-relaxed text-slate-600">{generator.description}</p>
+                        <p className="mt-3 text-sm font-medium text-slate-800">
+                          Aplicação típica: {generator.application}
+                        </p>
+                        <a
+                          href={waLink(quoteMessage(generator))}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="mt-4 inline-flex min-h-[44px] items-center gap-2 rounded-full bg-[#25D366] px-5 text-sm font-bold uppercase text-white hover:bg-[#20bd5a]"
+                        >
+                          <MessageCircle className="h-4 w-4" />
+                          Contratar
+                        </a>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </article>
             );
           })}
-        </div>
-
-        <div ref={detailRef}>
-          <AnimatePresence>
-            {selected && (
-              <motion.div
-                key={selected.kva}
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: "auto" }}
-                exit={{ opacity: 0, height: 0 }}
-                className="overflow-hidden"
-              >
-                <div className="mt-5 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
-                  <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                    {selected.kva} kVA
-                  </p>
-                  <h4 className="mt-1 font-heading text-2xl font-bold text-primary">{selected.title}</h4>
-                  <p className="mt-4 max-w-3xl text-muted-foreground">{selected.description}</p>
-                  <p className="mt-3 text-sm font-medium text-slate-700">
-                    Aplicação típica: {selected.application}
-                  </p>
-                  <a
-                    href={waLink(quoteMessage(selected))}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-6 inline-flex min-h-[48px] items-center gap-2 rounded-full bg-primary px-6 text-sm font-bold uppercase text-white"
-                  >
-                    <MessageCircle className="h-5 w-5" />
-                    Contratar
-                  </a>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
         </div>
       </div>
     </section>

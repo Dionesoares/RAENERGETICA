@@ -5,7 +5,7 @@ import { waLink } from "@/lib/whatsapp";
 const tabs = [
   { label: "Início", href: "#top", icon: Home },
   { label: "Geradores", href: "#geradores", icon: Zap },
-  { label: "Sobre", href: "#sobre", icon: Info },
+  { label: "Áreas", href: "#atuacao", icon: Info },
   { label: "Contato", href: "#contato", icon: Phone },
 ];
 

@@ -3,6 +3,7 @@ import Header from "@/components/ra/Header";
 import Hero from "@/components/ra/Hero";
 import ValuesCards from "@/components/ra/ValuesCards";
 import Generators from "@/components/ra/Generators";
+import AreasOfActivity from "@/components/ra/AreasOfActivity";
 import About from "@/components/ra/About";
 import Contact from "@/components/ra/Contact";
 import Footer from "@/components/ra/Footer";
@@ -16,6 +17,7 @@ export default function Home() {
         <Hero />
         <ValuesCards />
         <Generators />
+        <AreasOfActivity />
         <About />
         <Contact />
       </main>
