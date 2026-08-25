@@ -12,7 +12,7 @@ const values = [
 
 export default function ValuesCards() {
   return (
-    <section className="relative mx-auto max-w-7xl px-6 py-12 sm:py-20">
+    <section className="relative mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-20">
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {values.map((v, i) => (
           <motion.div

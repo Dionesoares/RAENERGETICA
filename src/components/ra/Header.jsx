@@ -72,7 +72,7 @@ export default function Header() {
               href={waQuoteLink()}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex min-w-[130px] flex-col justify-center border-r border-black/10 px-4 py-2.5 text-center hover:bg-white/60"
+              className="flex min-w-0 flex-col justify-center border-r border-black/10 px-3 py-2.5 text-center hover:bg-white/60 sm:min-w-[130px] sm:px-4"
             >
               <span className="text-[10px] font-semibold uppercase tracking-wide text-[#8a8a8a]">Solicite um</span>
               <span className="text-sm font-extrabold uppercase leading-tight text-primary">Orçamento</span>
@@ -80,7 +80,7 @@ export default function Header() {
 
             <Link
               to="/admin/login"
-              className="flex min-w-[90px] items-center justify-center border-r border-black/10 px-4 py-2.5 hover:bg-white/60"
+              className="flex min-w-0 items-center justify-center border-r border-black/10 px-3 py-2.5 hover:bg-white/60 sm:min-w-[90px] sm:px-4"
             >
               <span className="text-sm font-extrabold uppercase text-primary">Login</span>
             </Link>
@@ -99,7 +99,7 @@ export default function Header() {
 
       <div className="border-t border-black/5 bg-[#f4f6f8]">
         <div className="mx-auto flex max-w-[1400px] items-center justify-between gap-4 px-4 py-3 lg:px-6">
-          <a href="#top" className="shrink-0">
+          <a href="#top" className="min-w-0 max-w-[70%] shrink sm:max-w-none">
             <Logo compact />
           </a>
 

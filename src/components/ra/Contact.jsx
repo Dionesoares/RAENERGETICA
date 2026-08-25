@@ -7,9 +7,9 @@ import BrazilCoverageMap from "./BrazilCoverageMap";
 
 export default function Contact() {
   return (
-    <section id="contato" className="relative overflow-hidden bg-secondary/50 py-14 sm:py-24">
+    <section id="contato" className="relative overflow-hidden bg-secondary/50 py-12 sm:py-20 lg:py-24">
       <div className="absolute inset-0 grid-lines opacity-40" />
-      <div className="relative mx-auto max-w-7xl px-6">
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -27,7 +27,7 @@ export default function Contact() {
             transition={{ duration: 0.6 }}
             className="flex flex-col justify-center"
           >
-            <div className="rounded-3xl bg-card p-8 shadow-xl shadow-primary/5 sm:p-10">
+            <div className="rounded-3xl bg-card p-5 shadow-xl shadow-primary/5 sm:p-10">
               <h3 className="font-heading text-2xl font-bold text-primary">Vamos conversar</h3>
               <p className="mt-2 text-muted-foreground">
                 Solicite um orçamento ou tire dúvidas sobre locação de geradores.
@@ -50,7 +50,7 @@ export default function Contact() {
                   </div>
                   <div>
                     <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">E-mails</div>
-                    <p className="mt-1 font-medium text-foreground">
+                    <p className="mt-1 break-all font-medium text-foreground">
                       <a href="mailto:Ricardo@raeneregetica.com.br" className="hover:text-accent">Ricardo@raeneregetica.com.br</a><br />
                       <a href="mailto:dallessandro@raenergetica.com.br" className="hover:text-accent">dallessandro@raenergetica.com.br</a>
                     </p>

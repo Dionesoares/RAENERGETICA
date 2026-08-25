@@ -19,7 +19,7 @@ export default function Generators() {
   }, [selected]);
 
   return (
-    <section id="geradores" className="relative mx-auto max-w-7xl px-6 py-14 sm:py-24">
+    <section id="geradores" className="relative mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-24">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -27,7 +27,7 @@ export default function Generators() {
         transition={{ duration: 0.6 }}
         className="mb-10"
       >
-        <h2 className="font-heading text-3xl font-extrabold text-primary sm:text-5xl">Nossos Geradores</h2>
+        <h2 className="font-heading text-2xl font-extrabold text-primary sm:text-4xl lg:text-5xl">Nossos Geradores</h2>
         <p className="mt-3 max-w-2xl text-muted-foreground">
           Locação de geradores por potência, com aplicação típica e cotação direta no WhatsApp.
         </p>
@@ -46,7 +46,7 @@ export default function Generators() {
       </div>
 
       <div className="mt-14">
-        <h3 className="font-heading text-3xl font-extrabold text-slate-900 sm:text-4xl">Locação por potência</h3>
+        <h3 className="font-heading text-2xl font-extrabold text-slate-900 sm:text-3xl lg:text-4xl">Locação por potência</h3>
         <p className="mt-2 text-muted-foreground">
           Cada potência tem página própria com aplicação típica e cotação de locação.
         </p>

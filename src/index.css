@@ -33,6 +33,13 @@
   body {
     @apply bg-background text-foreground font-body;
     line-height: 1.6;
+    overflow-x: hidden;
+    max-width: 100%;
+  }
+
+  html {
+    overflow-x: hidden;
+    max-width: 100%;
   }
 
   h1, h2, h3, h4, h5, h6 {

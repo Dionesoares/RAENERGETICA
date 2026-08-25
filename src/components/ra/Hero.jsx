@@ -63,7 +63,7 @@ export default function Hero() {
           <div className="flex">
             {banners.map((banner) => (
               <div key={banner.id} className="relative min-w-0 shrink-0 grow-0 basis-full">
-                <div className="relative h-[240px] w-full bg-[#0b1c3d] sm:h-[380px] lg:h-[560px]">
+                <div className="relative h-[200px] w-full bg-[#0b1c3d] sm:h-[320px] md:h-[420px] lg:h-[560px]">
                   <img
                     src={banner.image_url}
                     alt={banner.caption || "Banner RA Energética"}
@@ -110,24 +110,24 @@ export default function Hero() {
         )}
       </div>
 
-      <div className="bg-primary px-6 py-5">
+      <div className="bg-primary px-4 py-4 sm:px-6 sm:py-5">
         {currentCaption ? (
-          <p className="mx-auto mb-4 max-w-4xl text-center text-sm font-bold uppercase tracking-wide text-white sm:text-base">
+          <p className="mx-auto mb-4 max-w-4xl text-center text-xs font-bold uppercase tracking-wide text-white sm:text-sm lg:text-base">
             {currentCaption}
           </p>
         ) : null}
-        <div className="flex flex-wrap items-center justify-center gap-4">
+        <div className="flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
           <a
             href={waQuoteLink()}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex min-h-[48px] items-center rounded-full bg-white px-6 text-sm font-bold uppercase text-primary"
+            className="inline-flex min-h-[48px] items-center justify-center rounded-full bg-white px-6 text-sm font-bold uppercase text-primary"
           >
             Solicite um orçamento
           </a>
           <a
             href="#geradores"
-            className="inline-flex min-h-[48px] items-center rounded-full border border-white/40 px-6 text-sm font-bold uppercase text-white"
+            className="inline-flex min-h-[48px] items-center justify-center rounded-full border border-white/40 px-6 text-sm font-bold uppercase text-white"
           >
             Nossos geradores
           </a>

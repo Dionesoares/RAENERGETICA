@@ -18,11 +18,11 @@ export default function Footer() {
       <div className="absolute inset-0 grid-lines opacity-10" />
       <div className="pointer-events-none absolute -left-20 top-10 h-72 w-72 rounded-full bg-accent/20 blur-3xl" />
 
-      <div className="relative mx-auto max-w-7xl px-6 py-16">
-        <div className="grid gap-10 md:grid-cols-3">
-          <div>
-            <div className="mx-auto w-fit text-center sm:mx-0 sm:text-left">
-              <Logo light compact />
+      <div className="relative mx-auto max-w-7xl overflow-hidden px-4 py-12 sm:px-6 sm:py-16">
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-3">
+          <div className="min-w-0">
+            <div className="mx-auto w-full max-w-[260px] sm:mx-0">
+              <Logo light tiny />
             </div>
             <p className="mt-5 max-w-xs text-sm text-white/60">
               Energia que constrói. Locação de geradores para eventos e empreendimentos em todo o Brasil.
@@ -37,17 +37,17 @@ export default function Footer() {
             </a>
           </div>
 
-          <div>
+          <div className="min-w-0">
             <h3 className="font-heading text-sm font-bold uppercase tracking-widest text-white/90">Contatos</h3>
-            <ul className="mt-5 space-y-3 text-sm text-white/70">
-              <li className="flex items-center gap-2"><Mail className="h-4 w-4 text-accent" /> Ricardo@raeneregetica.com.br</li>
-              <li className="flex items-center gap-2"><Mail className="h-4 w-4 text-accent" /> dallessandro@raenergetica.com.br</li>
-              <li className="flex items-center gap-2"><Phone className="h-4 w-4 text-accent" /> (63) 99993-8060</li>
-              <li className="flex items-center gap-2"><Phone className="h-4 w-4 text-accent" /> (63) 99228-2251</li>
+            <ul className="mt-5 space-y-3 break-all text-sm text-white/70">
+              <li className="flex items-start gap-2"><Mail className="mt-0.5 h-4 w-4 shrink-0 text-accent" /> Ricardo@raeneregetica.com.br</li>
+              <li className="flex items-start gap-2"><Mail className="mt-0.5 h-4 w-4 shrink-0 text-accent" /> dallessandro@raenergetica.com.br</li>
+              <li className="flex items-center gap-2"><Phone className="h-4 w-4 shrink-0 text-accent" /> (63) 99993-8060</li>
+              <li className="flex items-center gap-2"><Phone className="h-4 w-4 shrink-0 text-accent" /> (63) 99228-2251</li>
             </ul>
           </div>
 
-          <div>
+          <div className="min-w-0">
             <h3 className="font-heading text-sm font-bold uppercase tracking-widest text-white/90">Endereço</h3>
             <p className="mt-5 flex items-start gap-3 text-sm text-white/70">
               <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
@@ -57,7 +57,7 @@ export default function Footer() {
               <a href={waLink()} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" className="grid h-11 w-11 place-items-center rounded-full bg-white/10 ring-1 ring-inset ring-white/20 transition-colors hover:bg-accent hover:text-primary">
                 <MessageCircle className="h-5 w-5" />
               </a>
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="grid h-11 w-11 place-items-center rounded-full bg-white/10 ring-1 ring-inset ring-white/20 transition-colors hover:bg-accent hover:text-primary">
+              <a href="https://www.instagram.com/raenergetica/" target="_blank" rel="noopener noreferrer" aria-label="Instagram RA Energética" className="grid h-11 w-11 place-items-center rounded-full bg-white/10 ring-1 ring-inset ring-white/20 transition-colors hover:bg-accent hover:text-primary">
                 <Instagram className="h-5 w-5" />
               </a>
             </div>

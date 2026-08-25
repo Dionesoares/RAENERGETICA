@@ -28,7 +28,7 @@ export default function BrazilCoverageMap() {
   );
 
   return (
-    <div className="flex h-full min-h-[420px] flex-col bg-[#f7fbf3] p-5 sm:p-8">
+    <div className="flex h-full min-h-[300px] flex-col bg-[#f7fbf3] p-4 sm:min-h-[420px] sm:p-8">
       <div className="mb-4">
         <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Onde atuamos</p>
         <h3 className="mt-1 font-heading text-xl font-bold text-primary">Presente no Norte e Nordeste</h3>

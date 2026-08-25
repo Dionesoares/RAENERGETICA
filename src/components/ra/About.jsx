@@ -13,9 +13,9 @@ const points = [
 
 export default function About() {
   return (
-    <section id="sobre" className="relative overflow-hidden py-14 sm:py-24">
+    <section id="sobre" className="relative overflow-hidden py-12 sm:py-20 lg:py-24">
       <div className="absolute inset-0 grid-lines opacity-50 [mask-image:radial-gradient(ellipse_at_top,black,transparent_70%)]" />
-      <div className="relative mx-auto max-w-7xl px-6">
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -40,7 +40,7 @@ export default function About() {
               </div>
               <div className="absolute inset-0 bg-gradient-to-t from-primary/30 to-transparent" />
             </div>
-            <div className="glass absolute -bottom-6 -right-4 rounded-2xl px-6 py-4 shadow-xl sm:right-8">
+            <div className="glass absolute -bottom-4 right-3 rounded-2xl px-4 py-3 shadow-xl sm:-bottom-6 sm:right-8 sm:px-6 sm:py-4">
               <div className="font-heading text-3xl font-extrabold text-primary">+10 anos</div>
               <div className="text-xs font-medium uppercase tracking-wider text-muted-foreground">de experiência</div>
             </div>
@@ -52,14 +52,14 @@ export default function About() {
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.7 }}>
             
-            <p className="text-lg leading-relaxed text-muted-foreground">
+            <p className="text-justify text-base leading-relaxed text-muted-foreground sm:text-lg">
               Nós, da <strong className="text-[hsl(var(--secondary-foreground))]">RAENERGÉTICA</strong>, estamos empenhados em
               otimizar a qualidade dos serviços prestados por nossos colaboradores por meio de uma
               abordagem integrada em relação ao profissionalismo e bem-estar. Todas as soluções
               necessárias para estruturar a energia de suporte ao seu evento, seja ele de médio ou
               grande porte, você encontra aqui.
             </p>
-            <p className="mt-4 text-lg leading-relaxed text-muted-foreground">
+            <p className="mt-4 text-justify text-base leading-relaxed text-muted-foreground sm:text-lg">
               Suas festas e eventos estão garantidos do início ao fim. Nossos geradores variam de
               50 a 500 kVA e são responsáveis pela garantia de energia para eventos de todos os
               portes — desde grandes espetáculos como shows até eventos empresariais com grandes
@@ -85,7 +85,7 @@ export default function About() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mx-auto mt-16 max-w-3xl text-center text-lg leading-relaxed text-muted-foreground">
+          className="mx-auto mt-16 max-w-3xl text-justify text-base leading-relaxed text-muted-foreground sm:text-lg">
           
           Nosso objetivo é modelar e promover um padrão de profissionalismo e qualidade integrado.
           Conseguimos atingir esse objetivo por meio de nossos valores fundamentais: integração,
