@@ -1,4 +1,5 @@
 import { isSupabaseConfigured, supabase } from "@/lib/supabaseClient";
+import { mapAuthError } from "@/lib/authErrors";
 
 const TABLES = {
   Client: "clients",
@@ -11,11 +12,19 @@ const TABLES = {
   ServiceReport: "service_reports",
 };
 
-const adminEmails = () =>
-  String(import.meta.env.VITE_ADMIN_EMAILS || "")
+const FALLBACK_ADMIN_EMAILS = ["dione2010@gmail.com", "prof-dione-soares@hotmail.com"];
+
+const adminEmails = () => {
+  const fromEnv = String(import.meta.env.VITE_ADMIN_EMAILS || "")
     .split(",")
     .map((value) => value.trim().toLowerCase())
     .filter(Boolean);
+  return [...new Set([...fromEnv, ...FALLBACK_ADMIN_EMAILS])];
+};
+
+function isAdminEmail(email = "") {
+  return adminEmails().includes(String(email).trim().toLowerCase());
+}
 
 function requireSupabase() {
   if (!isSupabaseConfigured || !supabase) {
@@ -58,16 +67,27 @@ async function currentProfile() {
   }
 
   const { data: profile } = await client.from("profiles").select("*").eq("id", user.id).maybeSingle();
-  const email = user.email || profile?.email || "";
+  const email = (user.email || profile?.email || "").toLowerCase();
+  const { data: technician } = await client
+    .from("technicians")
+    .select("id,name,email")
+    .ilike("email", email)
+    .maybeSingle();
+
   const role =
-    profile?.role || (adminEmails().includes(email.toLowerCase()) ? "admin" : "user");
+    profile?.role === "admin" || isAdminEmail(email)
+      ? "admin"
+      : technician
+        ? "technician"
+        : "user";
 
   return {
+    ...profile,
     id: user.id,
     email,
     role,
-    full_name: profile?.full_name || user.user_metadata?.full_name || email,
-    ...profile,
+    technician_id: technician?.id || null,
+    full_name: profile?.full_name || technician?.name || user.user_metadata?.full_name || email,
   };
 }
 
@@ -87,7 +107,11 @@ function entityApi(table) {
       if (!isSupabaseConfigured) return [];
       let query = supabase.from(table).select("*");
       for (const [key, value] of Object.entries(match)) {
-        query = query.eq(key, value);
+        if (typeof value === "string" && (key === "email" || key === "technician_email")) {
+          query = query.ilike(key, value.trim());
+        } else {
+          query = query.eq(key, value);
+        }
       }
       query = applySort(query, sort);
       const { data, error } = await query;
@@ -99,13 +123,25 @@ function entityApi(table) {
     },
     async create(payload) {
       const client = requireSupabase();
-      const { data, error } = await client.from(table).insert(payload).select().single();
+      const body = { ...payload };
+      delete body.id;
+      delete body.created_date;
+      delete body.updated_date;
+      delete body.created_at;
+      delete body.updated_at;
+      const { data, error } = await client.from(table).insert(body).select().single();
       if (error) throw error;
       return mapRow(data);
     },
     async update(id, payload) {
       const client = requireSupabase();
-      const { data, error } = await client.from(table).update(payload).eq("id", id).select().single();
+      const body = { ...payload };
+      delete body.id;
+      delete body.created_date;
+      delete body.updated_date;
+      delete body.created_at;
+      delete body.updated_at;
+      const { data, error } = await client.from(table).update(body).eq("id", id).select().single();
       if (error) throw error;
       return mapRow(data);
     },
@@ -121,8 +157,14 @@ export const base44 = {
   auth: {
     async loginViaEmailPassword(email, password) {
       const client = requireSupabase();
-      const { error } = await client.auth.signInWithPassword({ email, password });
-      if (error) throw error;
+      const { data, error } = await client.auth.signInWithPassword({
+        email: String(email || "").trim().toLowerCase(),
+        password,
+      });
+      if (error) {
+        throw Object.assign(new Error(mapAuthError(error.message)), { status: error.status });
+      }
+      return data;
     },
     async me() {
       return currentProfile();

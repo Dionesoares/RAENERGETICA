@@ -40,9 +40,9 @@ export default function MiniCalendar({ taskDates = [], selectedDate, onSelectDat
           <button
             key={i}
             onClick={() => onSelectDate(d)}
-            className={`relative rounded-lg py-1.5 text-xs transition-colors ${
+            className={`relative grid h-8 place-items-center text-xs transition-colors ${
               !isSameMonth(d, month) ? "text-muted-foreground/40" : "text-foreground"
-            } ${isSameDay(d, selectedDate) ? "bg-primary text-white" : "hover:bg-secondary"}`}
+            } ${isSameDay(d, selectedDate) ? "rounded-full bg-primary text-white" : "rounded-lg hover:bg-secondary"}`}
           >
             {format(d, "d")}
             {hasTask(d) && <span className="absolute bottom-0.5 left-1/2 h-1 w-1 -translate-x-1/2 rounded-full bg-accent" />}

@@ -7,7 +7,6 @@ import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
 import ScrollToTop from './components/ScrollToTop';
 import ProtectedRoute from '@/components/ProtectedRoute';
-// Add page imports here
 import Home from '@/pages/Home';
 import Login from '@/pages/Login';
 import Register from '@/pages/Register';
@@ -25,42 +24,31 @@ import AdminTechnicians from '@/pages/AdminTechnicians';
 import AdminServiceReports from '@/pages/AdminServiceReports';
 import TecnicoLogin from '@/pages/TecnicoLogin';
 import TecnicoLayout from '@/components/tecnico/TecnicoLayout';
-import TecnicoDashboard from '@/pages/TecnicoDashboard';
+import TecnicoChamados from '@/pages/TecnicoChamados';
+import TecnicoReports from '@/pages/TecnicoReports';
 
 const AuthenticatedApp = () => {
-  const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
+  const { authError, navigateToLogin } = useAuth();
 
-  // Show loading spinner while checking app public settings or auth
-  if (isLoadingPublicSettings || isLoadingAuth) {
-    return (
-      <div className="fixed inset-0 flex items-center justify-center">
-        <div className="w-8 h-8 border-4 border-slate-200 border-t-slate-800 rounded-full animate-spin"></div>
-      </div>
-    );
-  }
-
-  // Handle authentication errors
   if (authError) {
     if (authError.type === 'user_not_registered') {
       return <UserNotRegisteredError />;
-    } else if (authError.type === 'auth_required') {
-      // Redirect to login automatically
+    }
+    if (authError.type === 'auth_required') {
       navigateToLogin();
       return null;
     }
   }
 
-  // Render the main app
   return (
     <Routes>
-      {/* Add your page Route elements here */}
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/reset-password" element={<ResetPassword />} />
       <Route path="/admin/login" element={<AdminLogin />} />
-      <Route element={<ProtectedRoute unauthenticatedElement={<Navigate to="/admin/login" replace />} />}>
+      <Route element={<ProtectedRoute requiredRole="admin" unauthenticatedElement={<Navigate to="/admin/login" replace />} />}>
         <Route path="/admin" element={<AdminLayout />}>
           <Route index element={<AdminDashboard />} />
           <Route path="financeiro" element={<AdminFinancial />} />
@@ -73,9 +61,10 @@ const AuthenticatedApp = () => {
         </Route>
       </Route>
       <Route path="/tecnico/login" element={<TecnicoLogin />} />
-      <Route element={<ProtectedRoute unauthenticatedElement={<Navigate to="/tecnico/login" replace />} />}>
+      <Route element={<ProtectedRoute requiredRole="technician" unauthenticatedElement={<Navigate to="/tecnico/login" replace />} />}>
         <Route path="/tecnico" element={<TecnicoLayout />}>
-          <Route index element={<TecnicoDashboard />} />
+          <Route index element={<TecnicoChamados />} />
+          <Route path="relatorios" element={<TecnicoReports />} />
         </Route>
       </Route>
       <Route path="*" element={<PageNotFound />} />
@@ -85,7 +74,6 @@ const AuthenticatedApp = () => {
 
 
 function App() {
-
   return (
     <AuthProvider>
       <QueryClientProvider client={queryClientInstance}>

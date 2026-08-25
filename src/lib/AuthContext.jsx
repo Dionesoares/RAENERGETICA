@@ -1,8 +1,22 @@
-import React, { createContext, useState, useContext, useEffect } from "react";
+import React, { createContext, useState, useContext, useEffect, useCallback } from "react";
 import { base44 } from "@/api/base44Client";
 import { isSupabaseConfigured, supabase } from "@/lib/supabaseClient";
 
 const AuthContext = createContext();
+
+async function withTimeout(promise, ms, fallback) {
+  let timer;
+  try {
+    return await Promise.race([
+      promise,
+      new Promise((resolve) => {
+        timer = setTimeout(() => resolve(fallback), ms);
+      }),
+    ]);
+  } finally {
+    clearTimeout(timer);
+  }
+}
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -16,50 +30,45 @@ export const AuthProvider = ({ children }) => {
     public_settings: {},
   });
 
-  const applySession = async (session) => {
+  const applySession = useCallback(async (session) => {
     if (!session) {
       setUser(null);
       setIsAuthenticated(false);
       setAuthError(null);
-      return;
+      return null;
     }
     try {
       const currentUser = await base44.auth.me();
       setUser(currentUser);
       setIsAuthenticated(true);
       setAuthError(null);
+      return currentUser;
     } catch {
       setUser(null);
       setIsAuthenticated(false);
+      return null;
     }
-  };
+  }, []);
 
-  const checkUserAuth = async () => {
+  const checkUserAuth = useCallback(async () => {
     setIsLoadingAuth(true);
     try {
       if (!isSupabaseConfigured) {
         setUser(null);
         setIsAuthenticated(false);
-        return;
+        return null;
       }
-      const {
-        data: { session },
-      } = await supabase.auth.getSession();
-      await applySession(session);
+      const result = await withTimeout(supabase.auth.getSession(), 8000, { data: { session: null } });
+      const session = result?.data?.session || null;
+      return await applySession(session);
     } finally {
       setIsLoadingAuth(false);
       setAuthChecked(true);
     }
-  };
-
-  const checkAppState = async () => {
-    setIsLoadingPublicSettings(false);
-    setAppPublicSettings({ id: "raenergetica", public_settings: {} });
-    await checkUserAuth();
-  };
+  }, [applySession]);
 
   useEffect(() => {
-    checkAppState();
+    checkUserAuth();
     if (!isSupabaseConfigured) return undefined;
 
     const {
@@ -71,6 +80,8 @@ export const AuthProvider = ({ children }) => {
     });
 
     return () => subscription.unsubscribe();
+    // Mount once: auth subscription + first session check.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const logout = (shouldRedirect = true) => {
@@ -84,7 +95,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const navigateToLogin = () => {
-    window.location.href = "/login";
+    window.location.href = "/admin/login";
   };
 
   return (
@@ -100,7 +111,8 @@ export const AuthProvider = ({ children }) => {
         logout,
         navigateToLogin,
         checkUserAuth,
-        checkAppState,
+        checkAppState: checkUserAuth,
+        setIsLoadingPublicSettings,
       }}
     >
       {children}

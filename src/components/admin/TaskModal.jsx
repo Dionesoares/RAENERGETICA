@@ -1,19 +1,33 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { base44 } from "@/api/base44Client";
 
-const empty = { title: "", description: "", date: "", time: "", priority: "media", status: "pendente" };
+const empty = {
+  title: "",
+  description: "",
+  date: "",
+  time: "",
+  priority: "media",
+  status: "pendente",
+  technician_id: "none",
+};
 
 export default function TaskModal({ open, onOpenChange, task, onSave }) {
   const [form, setForm] = useState(empty);
   const [saving, setSaving] = useState(false);
+  const [technicians, setTechnicians] = useState([]);
 
   useEffect(() => {
-    setForm(task ? { ...empty, ...task } : empty);
+    base44.entities.Technician.list("name").then(setTechnicians);
+  }, []);
+
+  useEffect(() => {
+    setForm(task ? { ...empty, ...task, technician_id: task.technician_id || "none" } : empty);
   }, [task, open]);
 
   const set = (field) => (e) => setForm((f) => ({ ...f, [field]: e.target.value }));
@@ -21,7 +35,18 @@ export default function TaskModal({ open, onOpenChange, task, onSave }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSaving(true);
-    await onSave(form);
+    const technician = technicians.find((item) => item.id === form.technician_id);
+    await onSave({
+      title: form.title,
+      description: form.description,
+      date: form.date,
+      time: form.time,
+      priority: form.priority,
+      status: form.status,
+      technician_id: technician?.id || null,
+      technician_email: technician?.email || null,
+      kind: technician ? "chamado" : "tarefa",
+    });
     setSaving(false);
   };
 
@@ -29,7 +54,7 @@ export default function TaskModal({ open, onOpenChange, task, onSave }) {
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-md">
         <DialogHeader>
-          <DialogTitle>{task ? "Editar Tarefa" : "Nova Tarefa"}</DialogTitle>
+          <DialogTitle>{task?.id ? "Editar Tarefa" : "Nova Tarefa / Chamado"}</DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-3">
           <div className="space-y-1">
@@ -49,6 +74,28 @@ export default function TaskModal({ open, onOpenChange, task, onSave }) {
               <Label>Hora</Label>
               <Input type="time" value={form.time} onChange={set("time")} />
             </div>
+          </div>
+          <div className="space-y-1">
+            <Label>Técnico responsável</Label>
+            <Select
+              value={form.technician_id || "none"}
+              onValueChange={(v) => setForm((f) => ({ ...f, technician_id: v }))}
+            >
+              <SelectTrigger>
+                <SelectValue placeholder="Somente administrativo" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="none">Somente administrativo</SelectItem>
+                {technicians.map((tech) => (
+                  <SelectItem key={tech.id} value={tech.id}>
+                    {tech.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <p className="text-xs text-muted-foreground">
+              Se escolher um técnico, o chamado aparece na área de suporte técnico.
+            </p>
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div className="space-y-1">
@@ -74,7 +121,7 @@ export default function TaskModal({ open, onOpenChange, task, onSave }) {
             </div>
           </div>
           <Button type="submit" className="w-full" disabled={saving}>
-            {saving ? "Salvando..." : "Salvar Tarefa"}
+            {saving ? "Salvando..." : "Salvar"}
           </Button>
         </form>
       </DialogContent>

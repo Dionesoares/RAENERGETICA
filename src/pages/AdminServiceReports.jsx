@@ -14,7 +14,7 @@ export default function AdminServiceReports() {
 
   return (
     <div>
-      <h1 className="mb-6 text-2xl font-bold text-primary">Relatórios de Suporte Técnico</h1>
+      <h1 className="mb-6 text-2xl font-bold text-primary">Relatórios</h1>
 
       {reports.length === 0 && (
         <p className="py-6 text-center text-sm text-muted-foreground">Nenhum relatório enviado ainda.</p>
@@ -28,6 +28,9 @@ export default function AdminServiceReports() {
             className="rounded-2xl border border-border bg-white p-4 text-left transition-colors hover:border-accent/40"
           >
             <p className="font-medium text-primary">{r.technician_name || "Técnico"}</p>
+            {r.technician_email && (
+              <p className="text-xs text-muted-foreground">{r.technician_email}</p>
+            )}
             <p className="mt-1 text-xs text-muted-foreground">{format(new Date(r.created_date), "dd/MM/yyyy HH:mm")}</p>
             <p className="mt-2 line-clamp-3 text-sm text-muted-foreground">{r.report_text}</p>
             {r.photos?.length > 0 && (

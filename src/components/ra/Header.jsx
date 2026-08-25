@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Phone, Menu, X, ChevronDown } from "lucide-react";
-import { Link } from "react-router-dom";
 import Logo from "./Logo";
 import { waQuoteLink } from "@/lib/whatsapp";
+import AccessLoginModal from "@/components/auth/AccessLoginModal";
 
 const contacts = [
   {
@@ -36,6 +36,7 @@ const navLinks = [
 
 export default function Header() {
   const [open, setOpen] = useState(false);
+  const [loginOpen, setLoginOpen] = useState(false);
 
   return (
     <header className="sticky top-0 z-50 w-full shadow-md">
@@ -78,12 +79,13 @@ export default function Header() {
               <span className="text-sm font-extrabold uppercase leading-tight text-primary">Orçamento</span>
             </a>
 
-            <Link
-              to="/admin/login"
+            <button
+              type="button"
+              onClick={() => setLoginOpen(true)}
               className="flex min-w-0 items-center justify-center border-r border-black/10 px-3 py-2.5 hover:bg-white/60 sm:min-w-[90px] sm:px-4"
             >
               <span className="text-sm font-extrabold uppercase text-primary">Login</span>
-            </Link>
+            </button>
           </div>
         </div>
 
@@ -146,16 +148,21 @@ export default function Header() {
             >
               Solicite um orçamento
             </a>
-            <Link
-              to="/admin/login"
-              onClick={() => setOpen(false)}
-              className="mt-2 block rounded-md border border-primary px-4 py-3 text-center text-sm font-bold uppercase text-primary"
+            <button
+              type="button"
+              onClick={() => {
+                setOpen(false);
+                setLoginOpen(true);
+              }}
+              className="mt-2 block w-full rounded-md border border-primary px-4 py-3 text-center text-sm font-bold uppercase text-primary"
             >
               Login
-            </Link>
+            </button>
           </nav>
         )}
       </div>
+
+      <AccessLoginModal open={loginOpen} onOpenChange={setLoginOpen} defaultMode="admin" />
     </header>
   );
 }

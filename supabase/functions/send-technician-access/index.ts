@@ -35,19 +35,65 @@ Deno.serve(async (req) => {
       .eq("id", user.id)
       .maybeSingle();
 
-    if (profile?.role !== "admin") {
+    const adminEmails = ["dione2010@gmail.com", "prof-dione-soares@hotmail.com"];
+    const isAdmin =
+      profile?.role === "admin" || adminEmails.includes(String(user.email || "").toLowerCase());
+    if (!isAdmin) {
       return Response.json({ error: "Forbidden" }, { status: 403, headers: corsHeaders });
     }
 
     const body = await req.json();
     const email = String(body?.email || "").trim().toLowerCase();
     const name = body?.name || "Técnico";
+    const password = String(body?.password || "");
     if (!email) {
       return Response.json({ error: "Email é obrigatório" }, { status: 400, headers: corsHeaders });
     }
 
-    const redirectTo = `${siteUrl.replace(/\/$/, "")}/reset-password`;
+    const loginUrl = `${siteUrl.replace(/\/$/, "")}/tecnico/login`;
 
+    if (password) {
+      if (password.length < 6) {
+        return Response.json({ error: "A senha deve ter no mínimo 6 caracteres" }, { status: 400, headers: corsHeaders });
+      }
+
+      const { data: created, error: createError } = await adminClient.auth.admin.createUser({
+        email,
+        password,
+        email_confirm: true,
+        user_metadata: { full_name: name, role: "user" },
+      });
+
+      if (createError) {
+        const { data: list } = await adminClient.auth.admin.listUsers({ page: 1, perPage: 1000 });
+        const existing = (list?.users || []).find((item) => String(item.email || "").toLowerCase() === email);
+        if (!existing) {
+          throw createError;
+        }
+        const { error: updateError } = await adminClient.auth.admin.updateUserById(existing.id, {
+          password,
+          email_confirm: true,
+          user_metadata: { full_name: name, role: "user" },
+        });
+        if (updateError) throw updateError;
+      } else if (created?.user?.id) {
+        await adminClient
+          .from("profiles")
+          .update({ full_name: name, role: "user", email })
+          .eq("id", created.user.id);
+      }
+
+      return Response.json(
+        {
+          success: true,
+          message: `Acesso criado para ${email}`,
+          tecnicoLoginUrl: loginUrl,
+        },
+        { headers: corsHeaders }
+      );
+    }
+
+    const redirectTo = `${siteUrl.replace(/\/$/, "")}/reset-password`;
     try {
       await adminClient.auth.admin.inviteUserByEmail(email, {
         redirectTo,
@@ -62,7 +108,7 @@ Deno.serve(async (req) => {
       {
         success: true,
         message: `Link de criação de senha enviado para ${email}`,
-        tecnicoLoginUrl: `${siteUrl.replace(/\/$/, "")}/tecnico/login`,
+        tecnicoLoginUrl: loginUrl,
       },
       { headers: corsHeaders }
     );

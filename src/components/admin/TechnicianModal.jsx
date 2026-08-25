@@ -9,7 +9,7 @@ import { base44 } from "@/api/base44Client";
 
 const empty = {
   name: "", email: "", phone: "", cpf: "", address: "", city: "", state: "",
-  cnh: "", resume_url: "", courses: "",
+  cnh: "", resume_url: "", courses: "", password: "", confirm_password: "",
 };
 
 export default function TechnicianModal({ open, onOpenChange, technician, onSave }) {
@@ -34,9 +34,22 @@ export default function TechnicianModal({ open, onOpenChange, technician, onSave
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!technician) {
+      if ((form.password || "").length < 6) {
+        alert("Defina uma senha de acesso com no mínimo 6 caracteres.");
+        return;
+      }
+      if (form.password !== form.confirm_password) {
+        alert("As senhas não coincidem.");
+        return;
+      }
+    }
     setSaving(true);
-    await onSave(form);
-    setSaving(false);
+    try {
+      await onSave(form);
+    } finally {
+      setSaving(false);
+    }
   };
 
   return (
@@ -52,7 +65,7 @@ export default function TechnicianModal({ open, onOpenChange, technician, onSave
               <Input id="tech-name" required value={form.name} onChange={set("name")} />
             </div>
             <div className="col-span-2 space-y-2">
-              <Label htmlFor="tech-email">E-mail</Label>
+              <Label htmlFor="tech-email">E-mail de acesso</Label>
               <Input
                 id="tech-email"
                 type="email"
@@ -62,9 +75,38 @@ export default function TechnicianModal({ open, onOpenChange, technician, onSave
                 onChange={set("email")}
               />
               {!technician && (
-                <p className="text-xs text-muted-foreground">Um convite de acesso será enviado para este e-mail.</p>
+                <p className="text-xs text-muted-foreground">
+                  Este e-mail e a senha abaixo liberam o acesso à área de suporte técnico.
+                </p>
               )}
             </div>
+            {!technician && (
+              <>
+                <div className="space-y-2">
+                  <Label htmlFor="tech-password">Senha de acesso</Label>
+                  <Input
+                    id="tech-password"
+                    type="password"
+                    required
+                    minLength={6}
+                    value={form.password}
+                    onChange={set("password")}
+                    placeholder="Mínimo 6 caracteres"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="tech-confirm">Confirmar senha</Label>
+                  <Input
+                    id="tech-confirm"
+                    type="password"
+                    required
+                    minLength={6}
+                    value={form.confirm_password}
+                    onChange={set("confirm_password")}
+                  />
+                </div>
+              </>
+            )}
             <div className="space-y-2">
               <Label htmlFor="tech-phone">Telefone</Label>
               <Input id="tech-phone" value={form.phone} onChange={set("phone")} />

@@ -76,6 +76,9 @@ export default function AdminDashboard() {
                     {t.title} {t.time && <span className="text-xs text-muted-foreground">• {t.time}</span>}
                   </p>
                   {t.description && <p className="text-xs text-muted-foreground">{t.description}</p>}
+                  {t.technician_email && (
+                    <p className="mt-1 text-[11px] font-medium text-primary">Chamado para técnico</p>
+                  )}
                 </div>
                 <span className={`rounded-full px-2 py-0.5 text-xs font-medium capitalize ${priorityColor[t.priority]}`}>
                   {t.priority}
