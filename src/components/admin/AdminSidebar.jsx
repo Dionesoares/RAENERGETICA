@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { LayoutDashboard, Wallet, Users, FileText, LogOut, Package, X, Wrench, ClipboardList } from "lucide-react";
+import { LayoutDashboard, Wallet, Users, FileText, LogOut, Package, X, Wrench, ClipboardList, Images } from "lucide-react";
 import { useAuth } from "@/lib/AuthContext";
 import Logo from "@/components/ra/Logo";
 
@@ -10,6 +10,7 @@ const items = [
   { label: "Clientes", to: "/admin/clientes", icon: Users },
   { label: "Contratos", to: "/admin/contratos", icon: FileText },
   { label: "Produtos", to: "/admin/produtos", icon: Package },
+  { label: "Banners", to: "/admin/banners", icon: Images },
   { label: "Técnicos", to: "/admin/tecnicos", icon: Wrench },
   { label: "Relatórios", to: "/admin/relatorios", icon: ClipboardList },
 ];
@@ -31,7 +32,7 @@ export default function AdminSidebar({ open, onClose }) {
       >
         <div className="mb-8 flex items-center justify-between px-2">
           <div>
-            <Logo compact />
+            <Logo tiny />
             <p className="mt-1 text-xs text-muted-foreground">Painel Administrativo</p>
           </div>
           <button onClick={onClose} className="text-foreground/60 hover:text-foreground lg:hidden">

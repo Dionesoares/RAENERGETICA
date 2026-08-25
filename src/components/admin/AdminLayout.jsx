@@ -39,7 +39,7 @@ export default function AdminLayout() {
           >
             <Menu className="h-5 w-5" />
           </button>
-          <Logo compact />
+          <Logo tiny />
         </header>
         <main className="flex-1 overflow-x-hidden p-4 sm:p-8">
           <Outlet />

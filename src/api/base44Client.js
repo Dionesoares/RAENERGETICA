@@ -4,6 +4,7 @@ const TABLES = {
   Client: "clients",
   Contract: "contracts",
   Product: "products",
+  Banner: "banners",
   Technician: "technicians",
   Task: "tasks",
   Transaction: "transactions",

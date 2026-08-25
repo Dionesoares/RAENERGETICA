@@ -1,6 +1,7 @@
 import React from "react";
 import { format } from "date-fns";
 import { defaultContractText } from "@/lib/contractClauses";
+import { COMPANY_ADDRESS } from "@/lib/company";
 
 const fmt = (d) => (d ? format(new Date(d), "dd/MM/yyyy") : "____/____/______");
 const money = (v) => (v ? Number(v).toLocaleString("pt-BR", { style: "currency", currency: "BRL" }) : "R$ 0,00");
@@ -9,7 +10,7 @@ const today = format(new Date(), "dd 'de' MMMM 'de' yyyy");
 const COMPANY = {
   name: "RA ENERGÉTICA GERADORES LTDA",
   cnpj: "02.255.526/0001-48",
-  address: "Rodovia TO 050, KM 05, Quadra 06, Lote 16, Zona Rural, Palmas/TO, CEP: 77064-596",
+  address: COMPANY_ADDRESS,
   phone: "(63) 99993-8060",
   email: "comercial@raenergetica.com.br",
   rep: "RICARDO AGRELI",
@@ -30,7 +31,7 @@ function Logo({ withSubtitle = false }) {
           <span style={{ color: "#E3231C" }}>ENERGÉTICA</span>
         </span>
         {withSubtitle && (
-          <span className="block text-xs font-semibold uppercase tracking-wide text-slate-500">Locações &amp; Eventos</span>
+          <span className="block text-xs font-semibold uppercase tracking-wide text-slate-500">Geradores</span>
         )}
       </span>
     </span>

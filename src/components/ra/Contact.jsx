@@ -2,11 +2,10 @@ import React from "react";
 import { motion } from "framer-motion";
 import { MapPin, Mail, Phone, MessageCircle } from "lucide-react";
 import { waQuoteLink } from "@/lib/whatsapp";
-
-const MAP_QUERY = encodeURIComponent("Quadra Alc-so 141 Mirante do Lago Alameda Cerejeira Plano Diretor Sul Palmas TO");
+import { COMPANY_ADDRESS } from "@/lib/company";
+import BrazilCoverageMap from "./BrazilCoverageMap";
 
 export default function Contact() {
-
   return (
     <section id="contato" className="relative overflow-hidden bg-secondary/50 py-14 sm:py-24">
       <div className="absolute inset-0 grid-lines opacity-40" />
@@ -15,10 +14,9 @@ export default function Contact() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mb-12 text-center">
-          
-          
-          <h2 className="mt-3 font-heading text-3xl font-extrabold text-primary sm:text-4xl">CONTATO</h2>
+          className="mb-12 text-center"
+        >
+          <h2 className="mt-3 font-heading text-3xl font-extrabold text-primary sm:text-4xl">FALE CONOSCO</h2>
         </motion.div>
 
         <div className="grid gap-8 lg:grid-cols-2">
@@ -27,8 +25,8 @@ export default function Contact() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="flex flex-col justify-center">
-            
+            className="flex flex-col justify-center"
+          >
             <div className="rounded-3xl bg-card p-8 shadow-xl shadow-primary/5 sm:p-10">
               <h3 className="font-heading text-2xl font-bold text-primary">Vamos conversar</h3>
               <p className="mt-2 text-muted-foreground">
@@ -42,10 +40,7 @@ export default function Contact() {
                   </div>
                   <div>
                     <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Endereço</div>
-                    <p className="mt-1 font-medium text-foreground">
-                      Quadra Alc-so 141 — Mirante do Lago, Alameda Cerejeira, Plano Diretor Sul
-                      <br /> Palmas, TO — CEP: 77.019-876 — Brasil
-                    </p>
+                    <p className="mt-1 font-medium text-foreground">{COMPANY_ADDRESS}</p>
                   </div>
                 </div>
 
@@ -80,8 +75,8 @@ export default function Contact() {
                 href={waQuoteLink()}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-8 flex min-h-[56px] w-full items-center justify-center gap-2 rounded-full bg-primary px-6 text-base font-semibold text-primary-foreground shadow-lg shadow-primary/30 transition-transform hover:scale-[1.02]">
-                
+                className="mt-8 flex min-h-[56px] w-full items-center justify-center gap-2 rounded-full bg-primary px-6 text-base font-semibold text-primary-foreground shadow-lg shadow-primary/30 transition-transform hover:scale-[1.02]"
+              >
                 <MessageCircle className="h-5 w-5" /> Falar no WhatsApp
               </a>
             </div>
@@ -92,20 +87,12 @@ export default function Contact() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="overflow-hidden rounded-3xl shadow-xl shadow-primary/10 ring-1 ring-border">
-            
-            <div className="h-full min-h-[420px] w-full">
-              <iframe
-                title="Mapa RA Energética"
-                src={`https://www.google.com/maps?q=${MAP_QUERY}&output=embed`}
-                className="h-full min-h-[420px] w-full border-0"
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade" />
-              
-            </div>
+            className="overflow-hidden rounded-3xl shadow-xl shadow-primary/10 ring-1 ring-border"
+          >
+            <BrazilCoverageMap />
           </motion.div>
         </div>
       </div>
-    </section>);
-
+    </section>
+  );
 }

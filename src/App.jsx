@@ -20,6 +20,7 @@ import AdminFinancial from '@/pages/AdminFinancial';
 import AdminClients from '@/pages/AdminClients';
 import AdminContracts from '@/pages/AdminContracts';
 import AdminProducts from '@/pages/AdminProducts';
+import AdminBanners from '@/pages/AdminBanners';
 import AdminTechnicians from '@/pages/AdminTechnicians';
 import AdminServiceReports from '@/pages/AdminServiceReports';
 import TecnicoLogin from '@/pages/TecnicoLogin';
@@ -66,6 +67,7 @@ const AuthenticatedApp = () => {
           <Route path="clientes" element={<AdminClients />} />
           <Route path="contratos" element={<AdminContracts />} />
           <Route path="produtos" element={<AdminProducts />} />
+          <Route path="banners" element={<AdminBanners />} />
           <Route path="tecnicos" element={<AdminTechnicians />} />
           <Route path="relatorios" element={<AdminServiceReports />} />
         </Route>

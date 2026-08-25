@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { MapPin, Mail, Phone, MessageCircle, Instagram } from "lucide-react";
 import Logo from "./Logo";
 import { waLink } from "@/lib/whatsapp";
+import { COMPANY_ADDRESS } from "@/lib/company";
 
 export default function Footer() {
   const [fab, setFab] = useState(false);
@@ -50,7 +51,7 @@ export default function Footer() {
             <h3 className="font-heading text-sm font-bold uppercase tracking-widest text-white/90">Endereço</h3>
             <p className="mt-5 flex items-start gap-3 text-sm text-white/70">
               <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
-              Quadra Alc-so 141 — Mirante do Lago, Alameda Cerejeira, Plano Diretor Sul, Palmas, TO — CEP: 77.019-876, Brasil
+              {COMPANY_ADDRESS}
             </p>
             <div className="mt-6 flex gap-3">
               <a href={waLink()} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" className="grid h-11 w-11 place-items-center rounded-full bg-white/10 ring-1 ring-inset ring-white/20 transition-colors hover:bg-accent hover:text-primary">
@@ -65,7 +66,7 @@ export default function Footer() {
 
         <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 text-xs text-white/50 sm:flex-row">
           <span>© {new Date().getFullYear()} RA Energética. Todos os direitos reservados.</span>
-          <span>Locações e Eventos • Palmas, TO</span>
+          <span>Geradores • Palmas, TO</span>
         </div>
       </div>
 

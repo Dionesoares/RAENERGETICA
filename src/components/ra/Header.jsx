@@ -50,7 +50,7 @@ export default function Header() {
               Localize a RA Energética perto de você
             </a>
             <a href="#sobre" className="text-[11px] leading-tight text-white/85 hover:text-white">
-              Locações &amp; Eventos
+              Geradores
             </a>
           </div>
 

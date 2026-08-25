@@ -1,61 +1,59 @@
 import React from "react";
 import { Image } from "@/components/ui/image";
 
-export default function Logo({ light = false, compact = false, className = "" }) {
-  const iconSize = compact
-    ? "h-7 w-7 shrink-0 sm:h-9 sm:w-9"
-    : "h-16 w-16 shrink-0 sm:h-20 sm:w-20 lg:h-28 lg:w-28";
-  const nameSize = compact
+const BLUE = "#1B2C54";
+const BLUE_LIGHT = "#4F7CFF";
+
+export default function Logo({ light = false, compact = false, tiny = false, className = "" }) {
+  const color = light ? BLUE_LIGHT : BLUE;
+  const iconSize = tiny
+    ? "h-8 w-8 shrink-0 sm:h-10 sm:w-10"
+    : compact
+    ? "h-14 w-14 shrink-0 sm:h-20 sm:w-20 lg:h-24 lg:w-24"
+    : "h-20 w-20 shrink-0 sm:h-28 sm:w-28 lg:h-36 lg:w-36";
+  const nameSize = tiny
     ? "text-base sm:text-lg"
-    : "text-2xl sm:text-3xl lg:text-5xl";
-  const subtitleSize = compact
-    ? "text-[6px] sm:text-[10px] sm:tracking-[0.1em]"
-    : "text-[9px] sm:text-sm lg:text-xl sm:tracking-[0.15em]";
+    : compact
+    ? "text-2xl sm:text-4xl lg:text-[2.75rem]"
+    : "text-4xl sm:text-5xl lg:text-6xl";
+  const subtitleSize = tiny
+    ? "text-[7px] sm:text-[10px]"
+    : compact
+    ? "text-[8px] sm:text-xs lg:text-sm sm:tracking-[0.14em]"
+    : "text-xs sm:text-base lg:text-xl sm:tracking-[0.16em]";
 
   return (
-    <div className={`group flex items-center gap-2 [perspective:800px] ${className}`}>
-      <Image
-        src="https://media.base44.com/images/public/6a7e084b2a4955a8b5e1cb3d/057207cec_ChatGPT_Image_15_de_ago_de_2026__18_55_22-removebg-preview.png"
-        alt="RA Energética"
-        fittingType="fit"
-        className={iconSize} />
-      
+    <div className={`group flex items-center gap-3 sm:gap-4 [perspective:800px] ${className}`}>
+      <span
+        className={`${iconSize} inline-flex items-center justify-center`}
+        style={{
+          filter: light
+            ? "brightness(0) invert(1)"
+            : "brightness(0) saturate(100%) invert(13%) sepia(42%) saturate(1486%) hue-rotate(196deg) brightness(92%) contrast(95%)",
+        }}
+      >
+        <Image
+          src="https://media.base44.com/images/public/6a7e084b2a4955a8b5e1cb3d/057207cec_ChatGPT_Image_15_de_ago_de_2026__18_55_22-removebg-preview.png"
+          alt="RA Energética"
+          fittingType="fit"
+          className="h-full w-full object-contain"
+        />
+      </span>
+
       <div className="relative flex flex-col leading-none transition-transform duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(-8deg)_rotateX(3deg)]">
         <span
-          className="font-extrabold italic tracking-tight"
-          style={{ fontFamily: "Arial, sans-serif" }}>
-          
-          <span
-            style={{
-              color: light ? "#4F7CFF" : "#1B2C54",
-              textShadow: light ?
-              "1px 1px 0 #12278a, 2px 2px 0 #12278a, 3px 3px 4px rgba(0,0,0,0.35)" :
-              "1px 1px 0 #0d1730, 2px 2px 0 #0d1730, 3px 3px 4px rgba(0,0,0,0.35)"
-            }} className={nameSize}>
-            
-            RA
-          </span>
-          <span
-            style={{
-              color: "#E3231C",
-              textShadow:
-              "1px 1px 0 #a5150f, 2px 2px 0 #a5150f, 3px 3px 4px rgba(0,0,0,0.35)"
-            }} className={nameSize}>
-            
-            ENERGÉTICA
-          </span>
+          className={`font-extrabold italic tracking-tight ${nameSize}`}
+          style={{ fontFamily: "Arial, sans-serif", color }}
+        >
+          RAENERGÉTICA
         </span>
         <span
-          className={`-mt-0.5 whitespace-nowrap font-bold uppercase tracking-[0.1em] text-center text-[hsl(var(--popover))] ${subtitleSize}`}
-          style={{
-            fontFamily: "Arial, sans-serif",
-            color: "#1E3FCC",
-            textShadow: "1px 1px 0 #12278a, 2px 2px 3px rgba(0,0,0,0.3)"
-          }}>
-          
-          Locações &amp; Eventos
+          className={`-mt-0.5 whitespace-nowrap text-center font-bold uppercase tracking-[0.12em] ${subtitleSize}`}
+          style={{ fontFamily: "Arial, sans-serif", color }}
+        >
+          Geradores
         </span>
       </div>
-    </div>);
-
+    </div>
+  );
 }
