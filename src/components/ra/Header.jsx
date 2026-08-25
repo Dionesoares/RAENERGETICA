@@ -41,7 +41,7 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 w-full shadow-md">
       <div className="bg-[#ececec]">
-        <div className="mx-auto flex max-w-[1400px]">
+        <div className="mx-auto hidden max-w-[1400px] lg:flex">
           <div className="hidden min-w-[230px] flex-col justify-center bg-primary px-5 py-3 text-white lg:flex">
             <div className="flex items-center gap-2 text-sm font-semibold">
               <Phone className="h-4 w-4 fill-current text-[#E3231C]" />
@@ -73,7 +73,7 @@ export default function Header() {
               href={waQuoteLink()}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex min-w-0 flex-col justify-center border-r border-black/10 px-3 py-2.5 text-center hover:bg-white/60 sm:min-w-[130px] sm:px-4"
+              className="hidden min-w-0 flex-col justify-center border-r border-black/10 px-3 py-2.5 text-center hover:bg-white/60 sm:min-w-[130px] sm:px-4 lg:flex"
             >
               <span className="text-[10px] font-semibold uppercase tracking-wide text-[#8a8a8a]">Solicite um</span>
               <span className="text-sm font-extrabold uppercase leading-tight text-primary">Orçamento</span>
@@ -149,14 +149,6 @@ export default function Header() {
                 {link.label}
               </a>
             ))}
-            <a
-              href={waQuoteLink()}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-3 block rounded-md bg-primary px-4 py-3 text-center text-sm font-bold uppercase text-white"
-            >
-              Solicite um orçamento
-            </a>
             <button
               type="button"
               onClick={() => {
