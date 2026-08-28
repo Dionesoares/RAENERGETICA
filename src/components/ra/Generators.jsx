@@ -7,13 +7,13 @@ import { generatorsByPower, generatorUseCases } from "@/lib/equipmentList";
 const quoteMessage = (generator) =>
   `Preciso de um orçamento para esse gerador: ${generator.title}.`;
 
-const GENERATOR_IMAGE = "/geradores/raenergetica-gerador.jpg";
+const GENERATOR_IMAGE = "/geradores/raenergetica-gerador.png";
 
 function thumbnailSize(kva) {
   const minKva = 15;
   const maxKva = 670;
-  const minPx = 72;
-  const maxPx = 148;
+  const minPx = 144;
+  const maxPx = 296;
   const t = (Math.sqrt(kva) - Math.sqrt(minKva)) / (Math.sqrt(maxKva) - Math.sqrt(minKva));
   return Math.round(minPx + Math.min(1, Math.max(0, t)) * (maxPx - minPx));
 }
@@ -88,13 +88,13 @@ export default function Generators() {
                       transition={{ duration: 0.22 }}
                       className="overflow-hidden"
                     >
-                      <div className="flex items-start gap-3 border-t border-slate-100 px-4 py-4">
+                      <div className="flex flex-col items-center gap-4 border-t border-slate-100 px-4 py-4 sm:flex-row sm:items-start">
                         <img
                           src={GENERATOR_IMAGE}
                           alt={generator.title}
                           width={thumb}
                           height={thumb}
-                          className="shrink-0 rounded-lg bg-slate-50 object-contain"
+                          className="shrink-0 object-contain drop-shadow-[0_10px_24px_rgba(11,28,61,0.35)]"
                           style={{
                             width: thumb,
                             height: thumb,
