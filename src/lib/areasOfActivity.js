@@ -8,7 +8,6 @@ export const areasOfActivity = [
     description:
       "Backup para consultas, exames, cirurgias, emergência e terapia intensiva — com atendimento imediato 24h.",
     image: "/areas/saude-hospital.jpg",
-    extraImage: "/areas/saude-clinica.jpg",
     features: [
       "Energia contínua para o que é essencial",
       "Suporte técnico 24h com atendimento imediato",
