@@ -7,6 +7,17 @@ import { generatorsByPower, generatorUseCases } from "@/lib/equipmentList";
 const quoteMessage = (generator) =>
   `Preciso de um orçamento para esse gerador: ${generator.title}.`;
 
+const GENERATOR_IMAGE = "/geradores/raenergetica-gerador.jpg";
+
+function thumbnailSize(kva) {
+  const minKva = 15;
+  const maxKva = 670;
+  const minPx = 72;
+  const maxPx = 148;
+  const t = (Math.sqrt(kva) - Math.sqrt(minKva)) / (Math.sqrt(maxKva) - Math.sqrt(minKva));
+  return Math.round(minPx + Math.min(1, Math.max(0, t)) * (maxPx - minPx));
+}
+
 export default function Generators() {
   const [selectedKva, setSelectedKva] = useState(null);
 
@@ -46,6 +57,7 @@ export default function Generators() {
         <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
           {generatorsByPower.map((generator) => {
             const active = selectedKva === generator.kva;
+            const thumb = thumbnailSize(generator.kva);
             return (
               <article
                 key={generator.kva}
@@ -76,23 +88,36 @@ export default function Generators() {
                       transition={{ duration: 0.22 }}
                       className="overflow-hidden"
                     >
-                      <div className="border-t border-slate-100 px-4 py-4">
-                        <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                          {generator.kva} kVA
-                        </p>
-                        <p className="mt-2 text-sm leading-relaxed text-slate-600">{generator.description}</p>
-                        <p className="mt-3 text-sm font-medium text-slate-800">
-                          Aplicação típica: {generator.application}
-                        </p>
-                        <a
-                          href={waLink(quoteMessage(generator))}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="mt-4 inline-flex min-h-[44px] items-center gap-2 rounded-full bg-[#25D366] px-5 text-sm font-bold uppercase text-white hover:bg-[#20bd5a]"
-                        >
-                          <MessageCircle className="h-4 w-4" />
-                          Contratar
-                        </a>
+                      <div className="flex items-start gap-3 border-t border-slate-100 px-4 py-4">
+                        <img
+                          src={GENERATOR_IMAGE}
+                          alt={generator.title}
+                          width={thumb}
+                          height={thumb}
+                          className="shrink-0 rounded-lg bg-slate-50 object-contain"
+                          style={{
+                            width: thumb,
+                            height: thumb,
+                          }}
+                        />
+                        <div className="min-w-0 flex-1">
+                          <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                            {generator.kva} kVA
+                          </p>
+                          <p className="mt-2 text-sm leading-relaxed text-slate-600">{generator.description}</p>
+                          <p className="mt-3 text-sm font-medium text-slate-800">
+                            Aplicação típica: {generator.application}
+                          </p>
+                          <a
+                            href={waLink(quoteMessage(generator))}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="mt-4 inline-flex min-h-[44px] items-center gap-2 rounded-full bg-[#25D366] px-5 text-sm font-bold uppercase text-white hover:bg-[#20bd5a]"
+                          >
+                            <MessageCircle className="h-4 w-4" />
+                            Contratar
+                          </a>
+                        </div>
                       </div>
                     </motion.div>
                   )}
