@@ -8,22 +8,22 @@ const contacts = [
   {
     value: "Ricardo@raeneregetica.com.br",
     href: "mailto:Ricardo@raeneregetica.com.br",
-    label: "Comercial — Ricardo",
+    label: "contato comercial",
   },
   {
     value: "(63) 99993-8060",
     href: "tel:+5563999938060",
-    label: "Contato Ricardo",
+    label: "contato comercial",
   },
   {
     value: "dallessandro@raenergetica.com.br",
     href: "mailto:dallessandro@raenergetica.com.br",
-    label: "Comercial — Dallessandro",
+    label: "contato comercial",
   },
   {
     value: "(63) 99228-2251",
     href: "tel:+5563992282251",
-    label: "Contato Dallessandro",
+    label: "contato comercial",
   },
 ];
 
