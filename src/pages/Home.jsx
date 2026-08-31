@@ -11,7 +11,7 @@ import MobileTabBar from "@/components/ra/MobileTabBar";
 
 export default function Home() {
   return (
-    <div className="relative min-h-screen max-w-full overflow-x-hidden bg-background pb-16 md:pb-0">
+    <div className="relative min-h-screen max-w-full overflow-x-hidden bg-background pb-16 pt-[var(--site-header-height,7.5rem)] md:pb-0">
       <Header />
       <main>
         <Hero />

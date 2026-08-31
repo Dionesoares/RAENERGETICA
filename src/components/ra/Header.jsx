@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Phone, Menu, X, ChevronDown } from "lucide-react";
 import Logo from "./Logo";
 import { waQuoteLink } from "@/lib/whatsapp";
@@ -37,10 +37,29 @@ const navLinks = [
 export default function Header() {
   const [open, setOpen] = useState(false);
   const [loginOpen, setLoginOpen] = useState(false);
+  const barRef = useRef(null);
+
+  useEffect(() => {
+    const el = barRef.current;
+    if (!el) return;
+
+    const syncHeight = () => {
+      document.documentElement.style.setProperty("--site-header-height", `${el.offsetHeight}px`);
+    };
+
+    syncHeight();
+    const observer = new ResizeObserver(syncHeight);
+    observer.observe(el);
+    return () => {
+      observer.disconnect();
+      document.documentElement.style.removeProperty("--site-header-height");
+    };
+  }, []);
 
   return (
-    <header className="sticky top-0 z-50 w-full shadow-md">
-      <div className="bg-[#ececec]">
+    <header className="fixed inset-x-0 top-0 z-50 w-full shadow-md">
+      <div ref={barRef}>
+        <div className="bg-[#ececec]">
         <div className="mx-auto hidden max-w-[1400px] lg:flex">
           <div className="hidden w-[250px] shrink-0 flex-col items-center justify-center bg-primary px-4 py-3 text-white lg:flex">
             <span className="relative text-center text-sm font-semibold">
@@ -136,32 +155,33 @@ export default function Header() {
             </button>
           </div>
         </div>
-
-        {open && (
-          <nav className="border-t border-black/5 bg-white px-4 py-3 lg:hidden">
-            {navLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                onClick={() => setOpen(false)}
-                className="block border-b border-black/5 py-3 text-sm font-bold uppercase text-primary"
-              >
-                {link.label}
-              </a>
-            ))}
-            <button
-              type="button"
-              onClick={() => {
-                setOpen(false);
-                setLoginOpen(true);
-              }}
-              className="mt-2 block w-full rounded-md border border-primary px-4 py-3 text-center text-sm font-bold uppercase text-primary"
-            >
-              Login
-            </button>
-          </nav>
-        )}
       </div>
+      </div>
+
+      {open && (
+        <nav className="border-t border-black/5 bg-white px-4 py-3 lg:hidden">
+          {navLinks.map((link) => (
+            <a
+              key={link.label}
+              href={link.href}
+              onClick={() => setOpen(false)}
+              className="block border-b border-black/5 py-3 text-sm font-bold uppercase text-primary"
+            >
+              {link.label}
+            </a>
+          ))}
+          <button
+            type="button"
+            onClick={() => {
+              setOpen(false);
+              setLoginOpen(true);
+            }}
+            className="mt-2 block w-full rounded-md border border-primary px-4 py-3 text-center text-sm font-bold uppercase text-primary"
+          >
+            Login
+          </button>
+        </nav>
+      )}
 
       <AccessLoginModal open={loginOpen} onOpenChange={setLoginOpen} defaultMode="admin" />
     </header>
