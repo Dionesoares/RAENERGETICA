@@ -36,7 +36,7 @@ export default function PartnerModal({ open, onOpenChange, partner, onSave }) {
     e.preventDefault();
     setSaving(true);
     try {
-      const { id, created_date, updated_date, created_at, updated_at, created_by_id, ...data } = form;
+      const { id, created_date, updated_date, created_at, updated_at, created_by_id, full_name, ...data } = form;
       await onSave({
         ...data,
         name: String(data.name || "").trim() || null,

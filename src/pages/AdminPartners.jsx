@@ -64,8 +64,8 @@ export default function AdminPartners() {
         )}
         {partners.map((partner) => (
           <div key={partner.id} className="overflow-hidden rounded-2xl border border-border bg-white">
-            <div className="flex h-36 items-center justify-center bg-secondary/40 p-4">
-              <img src={partner.logo_url} alt={partner.name || "Parceiro"} className="max-h-full max-w-full object-contain" />
+            <div className="aspect-[16/10] bg-secondary/40">
+              <img src={partner.logo_url} alt={partner.name || "Parceiro"} className="h-full w-full object-cover" />
             </div>
             <div className="p-4">
               <p className="font-semibold text-primary">{partner.name || "Sem nome"}</p>

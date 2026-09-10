@@ -49,24 +49,28 @@ export default function Partners() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: Math.min(index * 0.05, 0.3) }}
-                className="flex flex-col items-center rounded-3xl border border-primary/10 bg-white px-6 py-8 shadow-sm"
+                className="flex flex-col overflow-hidden rounded-3xl border border-primary/10 bg-white shadow-sm"
               >
-                <div className="flex h-28 w-full items-center justify-center">
+                <div className="aspect-[16/10] w-full bg-slate-50">
                   <img
                     src={partner.logo_url}
                     alt={partner.name || "Parceiro RA Energética"}
-                    className="max-h-24 max-w-full object-contain"
+                    className="h-full w-full object-cover"
                   />
                 </div>
-                {partner.name && (
-                  <h3 className="mt-5 text-center font-heading text-base font-bold text-primary">
-                    {partner.name}
-                  </h3>
-                )}
-                {partner.message && (
-                  <p className="mt-3 text-center text-sm leading-relaxed text-muted-foreground">
-                    {partner.message}
-                  </p>
+                {(partner.name || partner.message) && (
+                  <div className="px-6 py-5">
+                    {partner.name && (
+                      <h3 className="text-center font-heading text-base font-bold text-primary">
+                        {partner.name}
+                      </h3>
+                    )}
+                    {partner.message && (
+                      <p className="mt-3 text-center text-sm leading-relaxed text-muted-foreground">
+                        {partner.message}
+                      </p>
+                    )}
+                  </div>
                 )}
               </motion.article>
             ))}

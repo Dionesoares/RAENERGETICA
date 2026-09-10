@@ -93,6 +93,18 @@ async function currentProfile() {
   };
 }
 
+function cleanEntityPayload(table, payload) {
+  const body = { ...payload };
+  delete body.id;
+  delete body.created_date;
+  delete body.updated_date;
+  delete body.created_at;
+  delete body.updated_at;
+  delete body.created_by_id;
+  if (table !== "profiles") delete body.full_name;
+  return body;
+}
+
 function entityApi(table) {
   return {
     async list(sort) {
@@ -125,24 +137,14 @@ function entityApi(table) {
     },
     async create(payload) {
       const client = requireSupabase();
-      const body = { ...payload };
-      delete body.id;
-      delete body.created_date;
-      delete body.updated_date;
-      delete body.created_at;
-      delete body.updated_at;
+      const body = cleanEntityPayload(table, payload);
       const { data, error } = await client.from(table).insert(body).select().single();
       if (error) throw error;
       return mapRow(data);
     },
     async update(id, payload) {
       const client = requireSupabase();
-      const body = { ...payload };
-      delete body.id;
-      delete body.created_date;
-      delete body.updated_date;
-      delete body.created_at;
-      delete body.updated_at;
+      const body = cleanEntityPayload(table, payload);
       const { data, error } = await client.from(table).update(body).eq("id", id).select().single();
       if (error) throw error;
       return mapRow(data);
