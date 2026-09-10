@@ -1,14 +1,44 @@
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 
-export async function exportElementToPdf(elementId, filename = "documento.pdf") {
+async function waitForImages(element) {
+  const images = [...element.querySelectorAll("img")];
+  await Promise.all(
+    images.map((img) => {
+      if (img.complete && img.naturalWidth) return Promise.resolve();
+      return new Promise((resolve) => {
+        img.onload = resolve;
+        img.onerror = resolve;
+      });
+    })
+  );
+}
+
+export async function exportElementToPdf(elementId, filename = "documento.pdf", { fitToOnePage = false } = {}) {
   const element = document.getElementById(elementId);
   if (!element) return;
-  const canvas = await html2canvas(element, { scale: 1.5, useCORS: true, backgroundColor: "#ffffff" });
+  await waitForImages(element);
+  const canvas = await html2canvas(element, { scale: 2, useCORS: true, backgroundColor: "#ffffff" });
   const imgData = canvas.toDataURL("image/png");
   const pdf = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
   const pageWidth = pdf.internal.pageSize.getWidth();
   const pageHeight = pdf.internal.pageSize.getHeight();
+
+  if (fitToOnePage) {
+    const imgWidth = pageWidth;
+    const imgHeight = (canvas.height * imgWidth) / canvas.width;
+    if (imgHeight <= pageHeight) {
+      pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
+    } else {
+      const scaledHeight = pageHeight;
+      const scaledWidth = (canvas.width * pageHeight) / canvas.height;
+      const x = (pageWidth - scaledWidth) / 2;
+      pdf.addImage(imgData, "PNG", x, 0, scaledWidth, scaledHeight);
+    }
+    pdf.save(filename);
+    return;
+  }
+
   const imgWidth = pageWidth;
   const imgHeight = (canvas.height * imgWidth) / canvas.width;
   let heightLeft = imgHeight;

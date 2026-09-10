@@ -164,7 +164,7 @@ export default function ContractModal({ open, onOpenChange, contract, clients, o
                   size="sm"
                   variant="outline"
                   disabled={!selectedClient}
-                  onClick={() => exportElementToPdf("contract-template", `contrato-${form.contract_number}.pdf`)}
+                  onClick={() => exportElementToPdf("contract-template", `contrato-${form.contract_number}.pdf`, { fitToOnePage: true })}
                 >
                   <FileDown className="mr-2 h-4 w-4" /> Exportar PDF
                 </Button>

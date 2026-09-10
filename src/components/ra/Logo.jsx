@@ -1,6 +1,9 @@
 import React from "react";
 import { Image } from "@/components/ui/image";
 
+export const SITE_LOGO_SRC =
+  "https://media.base44.com/images/public/6a7e084b2a4955a8b5e1cb3d/057207cec_ChatGPT_Image_15_de_ago_de_2026__18_55_22-removebg-preview.png";
+
 const BLUE = "#1B2C54";
 const BLUE_LIGHT = "#4F7CFF";
 
@@ -33,7 +36,7 @@ export default function Logo({ light = false, compact = false, tiny = false, cla
         }}
       >
         <Image
-          src="https://media.base44.com/images/public/6a7e084b2a4955a8b5e1cb3d/057207cec_ChatGPT_Image_15_de_ago_de_2026__18_55_22-removebg-preview.png"
+          src={SITE_LOGO_SRC}
           alt="RA Energética"
           fittingType="fit"
           className="h-full w-full object-contain"

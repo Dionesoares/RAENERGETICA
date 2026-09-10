@@ -66,7 +66,7 @@ export default function AdminContracts() {
     requestAnimationFrame(() => {
       requestAnimationFrame(async () => {
         if (cancelled) return;
-        await exportElementToPdf("contract-template-download", `contrato-${downloadTarget.contract.contract_number}.pdf`);
+        await exportElementToPdf("contract-template-download", `contrato-${downloadTarget.contract.contract_number}.pdf`, { fitToOnePage: true });
         setDownloadTarget(null);
         setDownloadingId(null);
       });
