@@ -2,7 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { MapPin, Mail, Phone, MessageCircle } from "lucide-react";
 import { waQuoteLink } from "@/lib/whatsapp";
-import { COMPANY_ADDRESS } from "@/lib/company";
+import { COMPANY_ADDRESS, COMPANY_EMAILS } from "@/lib/company";
 import BrazilCoverageMap from "./BrazilCoverageMap";
 
 export default function Contact() {
@@ -51,8 +51,9 @@ export default function Contact() {
                   <div>
                     <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">E-mails</div>
                     <p className="mt-1 break-all font-medium text-foreground">
-                      <a href="mailto:Ricardo@raeneregetica.com.br" className="hover:text-accent">Ricardo@raeneregetica.com.br</a><br />
-                      <a href="mailto:dallessandro@raenergetica.com.br" className="hover:text-accent">dallessandro@raenergetica.com.br</a>
+                      <a href={`mailto:${COMPANY_EMAILS.comercial}`} className="hover:text-accent">{COMPANY_EMAILS.comercial}</a><br />
+                      <a href={`mailto:${COMPANY_EMAILS.ricardo}`} className="hover:text-accent">{COMPANY_EMAILS.ricardo}</a><br />
+                      <a href={`mailto:${COMPANY_EMAILS.dallessandro}`} className="hover:text-accent">{COMPANY_EMAILS.dallessandro}</a>
                     </p>
                   </div>
                 </div>

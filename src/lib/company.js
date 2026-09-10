@@ -1,3 +1,9 @@
+export const COMPANY_EMAILS = {
+  comercial: "comercial@raenergetica.com.br",
+  ricardo: "ricardo@raenergetica.com.br",
+  dallessandro: "dallessandro@raenergetica.com.br",
+};
+
 export const COMPANY_ADDRESS =
   "RODOVIA TO 050 KM 05, QUADRA 06, LOTE 16, ZONA RURAL, CEP: 77064-596, PALMAS-TOCANTINS.";
 

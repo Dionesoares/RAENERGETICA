@@ -3,11 +3,17 @@ import { Phone, Menu, X, ChevronDown } from "lucide-react";
 import Logo from "./Logo";
 import { waQuoteLink } from "@/lib/whatsapp";
 import AccessLoginModal from "@/components/auth/AccessLoginModal";
+import { COMPANY_EMAILS } from "@/lib/company";
 
 const contacts = [
   {
-    value: "Ricardo@raeneregetica.com.br",
-    href: "mailto:Ricardo@raeneregetica.com.br",
+    value: COMPANY_EMAILS.comercial,
+    href: `mailto:${COMPANY_EMAILS.comercial}`,
+    label: "contato comercial",
+  },
+  {
+    value: COMPANY_EMAILS.ricardo,
+    href: `mailto:${COMPANY_EMAILS.ricardo}`,
     label: "contato comercial",
   },
   {
@@ -16,8 +22,8 @@ const contacts = [
     label: "contato comercial",
   },
   {
-    value: "dallessandro@raenergetica.com.br",
-    href: "mailto:dallessandro@raenergetica.com.br",
+    value: COMPANY_EMAILS.dallessandro,
+    href: `mailto:${COMPANY_EMAILS.dallessandro}`,
     label: "contato comercial",
   },
   {
@@ -80,9 +86,9 @@ export default function Header() {
                 <a
                   key={item.value}
                   href={item.href}
-                  className="flex min-w-0 flex-1 flex-col justify-center border-r border-black/10 px-4 py-2.5 hover:bg-white/60"
+                  className="flex min-w-0 flex-1 flex-col justify-center border-r border-black/10 px-2.5 py-2.5 hover:bg-white/60 xl:px-3"
                 >
-                  <span className="truncate text-[15px] font-bold leading-tight text-primary">{item.value}</span>
+                  <span className="truncate text-[13px] font-bold leading-tight text-primary 2xl:text-[15px]">{item.value}</span>
                   <span className="mt-0.5 text-[11px] text-[#6b6b6b]">{item.label}</span>
                 </a>
               ))}

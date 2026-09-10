@@ -8,6 +8,7 @@ import About from "@/components/ra/About";
 import Contact from "@/components/ra/Contact";
 import Footer from "@/components/ra/Footer";
 import MobileTabBar from "@/components/ra/MobileTabBar";
+import LgpdPopup from "@/components/ra/LgpdPopup";
 
 export default function Home() {
   return (
@@ -23,6 +24,7 @@ export default function Home() {
       </main>
       <Footer />
       <MobileTabBar />
+      <LgpdPopup />
     </div>
   );
 }
