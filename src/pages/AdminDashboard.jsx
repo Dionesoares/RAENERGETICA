@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import { format, isSameDay } from "date-fns";
-import { Plus, CheckCircle2, Circle, Trash2, Landmark, FilePenLine, Building2, Search } from "lucide-react";
+import { Plus, CheckCircle2, Circle, Trash2, Landmark, FilePenLine, Building2, Search, CreditCard, Receipt } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import MiniCalendar from "@/components/admin/MiniCalendar";
 import TaskModal from "@/components/admin/TaskModal";
@@ -28,6 +28,16 @@ const GOVERNMENT_LINKS = [
     label: "Sintegra",
     href: "https://www.sintegra.gov.br/",
     icon: Search,
+  },
+  {
+    label: "Asaas",
+    href: "https://www.asaas.com/dashboard/home",
+    icon: CreditCard,
+  },
+  {
+    label: "WebISS",
+    href: "https://www.webiss.com.br/",
+    icon: Receipt,
   },
 ];
 
@@ -68,7 +78,7 @@ export default function AdminDashboard() {
     <div>
       <h1 className="mb-6 text-2xl font-bold text-primary">Dashboard</h1>
 
-      <div className="mb-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+      <div className="mb-6 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
         {GOVERNMENT_LINKS.map((link) => (
           <a
             key={link.href}

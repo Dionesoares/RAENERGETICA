@@ -1,11 +1,12 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { LayoutDashboard, Wallet, Users, FileText, LogOut, Package, X, Wrench, ClipboardList, Images, UserPlus } from "lucide-react";
+import { LayoutDashboard, Wallet, Users, FileText, LogOut, Package, X, Wrench, ClipboardList, Images, UserPlus, ClipboardPen } from "lucide-react";
 import { useAuth } from "@/lib/AuthContext";
 import Logo from "@/components/ra/Logo";
 
 const items = [
   { label: "Dashboard", to: "/admin", icon: LayoutDashboard, end: true },
+  { label: "Orçamento", to: "/admin/orcamentos", icon: ClipboardPen },
   { label: "Financeiro", to: "/admin/financeiro", icon: Wallet },
   { label: "Clientes", to: "/admin/clientes", icon: Users },
   { label: "Contratos", to: "/admin/contratos", icon: FileText },

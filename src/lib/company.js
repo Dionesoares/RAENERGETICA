@@ -4,6 +4,20 @@ export const COMPANY_EMAILS = {
   dallessandro: "dallessandro@raenergetica.com.br",
 };
 
+export const COMPANY_PHONES = {
+  comercial: {
+    label: "Comercial",
+    display: "(63) 99228-2251",
+    tel: "+5563992282251",
+    whatsapp: true,
+  },
+  administrativo: {
+    label: "Administrativo",
+    display: "(63) 99911-8060",
+    tel: "+5563999118060",
+  },
+};
+
 export const COMPANY_ADDRESS =
   "RODOVIA TO 050 KM 05, QUADRA 06, LOTE 16, ZONA RURAL, CEP: 77064-596, PALMAS-TOCANTINS.";
 

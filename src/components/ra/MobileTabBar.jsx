@@ -3,10 +3,10 @@ import { Home, Zap, Info, Phone, MessageCircle } from "lucide-react";
 import { waLink } from "@/lib/whatsapp";
 
 const tabs = [
-  { label: "Início", href: "#top", icon: Home },
-  { label: "Geradores", href: "#geradores", icon: Zap },
-  { label: "Áreas", href: "#atuacao", icon: Info },
-  { label: "Contato", href: "#contato", icon: Phone },
+  { label: "Início", href: "/#top", icon: Home },
+  { label: "Geradores", href: "/#geradores", icon: Zap },
+  { label: "Áreas", href: "/#atuacao", icon: Info },
+  { label: "Contato", href: "/#contato", icon: Phone },
 ];
 
 export default function MobileTabBar() {

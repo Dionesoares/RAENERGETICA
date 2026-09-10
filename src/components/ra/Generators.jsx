@@ -1,11 +1,8 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { MessageCircle } from "lucide-react";
-import { waLink } from "@/lib/whatsapp";
+import { ClipboardPen } from "lucide-react";
 import { generatorsByPower, generatorUseCases } from "@/lib/equipmentList";
-
-const quoteMessage = (generator) =>
-  `Preciso de um orçamento para esse gerador: ${generator.title}.`;
 
 const GENERATOR_IMAGE = "/geradores/raenergetica-gerador.png";
 
@@ -76,15 +73,13 @@ export default function Generators() {
                   <p className="mt-3 text-sm font-medium text-slate-800">
                     Aplicação típica: {generator.application}
                   </p>
-                  <a
-                    href={waLink(quoteMessage(generator))}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="mt-auto inline-flex min-h-[44px] items-center justify-center gap-2 rounded-full bg-[#25D366] px-5 text-sm font-bold uppercase text-white hover:bg-[#20bd5a]"
+                  <Link
+                    to={`/orcamento?gerador=${generator.kva}`}
+                    className="mt-auto inline-flex min-h-[44px] items-center justify-center gap-2 rounded-full bg-primary px-5 text-sm font-bold uppercase text-white hover:bg-primary/90"
                   >
-                    <MessageCircle className="h-4 w-4" />
-                    Contratar
-                  </a>
+                    <ClipboardPen className="h-4 w-4" />
+                    Solicitar orçamento
+                  </Link>
                 </div>
               </article>
             );

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import { Phone, Menu, X, ChevronDown } from "lucide-react";
 import Logo from "./Logo";
-import { waQuoteLink } from "@/lib/whatsapp";
 import AccessLoginModal from "@/components/auth/AccessLoginModal";
 import { COMPANY_EMAILS } from "@/lib/company";
 
@@ -34,10 +34,10 @@ const contacts = [
 ];
 
 const navLinks = [
-  { label: "Nossos Geradores", href: "#geradores", dropdown: true },
-  { label: "Áreas de Atuação", href: "#atuacao" },
-  { label: "Sobre Nós", href: "#sobre", dropdown: true },
-  { label: "Contato", href: "#contato", dropdown: true },
+  { label: "Nossos Geradores", href: "/#geradores", dropdown: true },
+  { label: "Áreas de Atuação", href: "/#atuacao" },
+  { label: "Sobre Nós", href: "/#sobre", dropdown: true },
+  { label: "Contato", href: "/#contato", dropdown: true },
 ];
 
 export default function Header() {
@@ -75,7 +75,7 @@ export default function Header() {
               />
               Fale Conosco
             </span>
-            <a href="#contato" className="mt-1 text-center text-[11px] leading-tight text-white/85 hover:text-white">
+            <a href="/#contato" className="mt-1 text-center text-[11px] leading-tight text-white/85 hover:text-white">
               Nossa localização
             </a>
           </div>
@@ -94,15 +94,13 @@ export default function Header() {
               ))}
             </div>
 
-            <a
-              href={waQuoteLink()}
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              to="/orcamento"
               className="hidden min-w-0 flex-col justify-center border-r border-black/10 px-3 py-2.5 text-center hover:bg-white/60 sm:min-w-[130px] sm:px-4 lg:flex"
             >
               <span className="text-[10px] font-semibold uppercase tracking-wide text-[#8a8a8a]">Solicite um</span>
               <span className="text-sm font-extrabold uppercase leading-tight text-primary">Orçamento</span>
-            </a>
+            </Link>
 
             <button
               type="button"
@@ -126,9 +124,9 @@ export default function Header() {
 
       <div className="border-t border-black/5 bg-[#f4f6f8]">
         <div className="mx-auto flex max-w-[1400px] items-center justify-between gap-4 px-4 py-3 lg:px-6">
-          <a href="#top" className="min-w-0 max-w-[calc(100%-8.5rem)] shrink sm:max-w-none">
+          <Link to="/" className="min-w-0 max-w-[calc(100%-8.5rem)] shrink sm:max-w-none">
             <Logo compact />
-          </a>
+          </Link>
 
           <nav className="hidden items-center gap-1 lg:flex">
             {navLinks.map((link) => (
@@ -176,6 +174,13 @@ export default function Header() {
               {link.label}
             </a>
           ))}
+          <Link
+            to="/orcamento"
+            onClick={() => setOpen(false)}
+            className="mt-2 block w-full rounded-md bg-primary px-4 py-3 text-center text-sm font-bold uppercase text-white"
+          >
+            Solicite um orçamento
+          </Link>
           <button
             type="button"
             onClick={() => {

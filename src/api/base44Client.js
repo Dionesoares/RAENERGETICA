@@ -10,6 +10,7 @@ const TABLES = {
   Task: "tasks",
   Transaction: "transactions",
   ServiceReport: "service_reports",
+  QuoteRequest: "quote_requests",
 };
 
 const FALLBACK_ADMIN_EMAILS = ["dione2010@gmail.com", "prof-dione-soares@hotmail.com"];

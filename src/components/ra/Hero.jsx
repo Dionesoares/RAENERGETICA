@@ -3,7 +3,7 @@ import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { base44 } from "@/api/base44Client";
-import { waQuoteLink } from "@/lib/whatsapp";
+import { Link } from "react-router-dom";
 
 const FALLBACK_BANNERS = [
   {
@@ -175,14 +175,12 @@ export default function Hero() {
           </p>
         ) : null}
         <div className="flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
-          <a
-            href={waQuoteLink()}
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+            to="/orcamento"
             className="inline-flex min-h-[48px] items-center justify-center rounded-full bg-white px-6 text-sm font-bold uppercase text-primary"
           >
             Solicite um orçamento
-          </a>
+          </Link>
           <a
             href="#geradores"
             className="inline-flex min-h-[48px] items-center justify-center rounded-full border border-white/40 px-6 text-sm font-bold uppercase text-white"

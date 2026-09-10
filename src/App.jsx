@@ -8,6 +8,8 @@ import UserNotRegisteredError from '@/components/UserNotRegisteredError';
 import ScrollToTop from './components/ScrollToTop';
 import ProtectedRoute from '@/components/ProtectedRoute';
 import Home from '@/pages/Home';
+import Quote from '@/pages/Quote';
+import AdminQuotes from '@/pages/AdminQuotes';
 import Login from '@/pages/Login';
 import Register from '@/pages/Register';
 import ForgotPassword from '@/pages/ForgotPassword';
@@ -44,6 +46,7 @@ const AuthenticatedApp = () => {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
+      <Route path="/orcamento" element={<Quote />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
@@ -52,6 +55,7 @@ const AuthenticatedApp = () => {
       <Route element={<ProtectedRoute requiredRole="admin" unauthenticatedElement={<Navigate to="/admin/login" replace />} />}>
         <Route path="/admin" element={<AdminLayout />}>
           <Route index element={<AdminDashboard />} />
+          <Route path="orcamentos" element={<AdminQuotes />} />
           <Route path="financeiro" element={<AdminFinancial />} />
           <Route path="clientes" element={<AdminClients />} />
           <Route path="contratos" element={<AdminContracts />} />
