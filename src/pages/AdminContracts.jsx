@@ -66,7 +66,7 @@ export default function AdminContracts() {
     requestAnimationFrame(() => {
       requestAnimationFrame(async () => {
         if (cancelled) return;
-        await exportElementToPdf("contract-template-download", `contrato-${downloadTarget.contract.contract_number}.pdf`, { fitToOnePage: true });
+        await exportElementToPdf("contract-template-download", `contrato-${downloadTarget.contract.contract_number}.pdf`);
         setDownloadTarget(null);
         setDownloadingId(null);
       });
@@ -174,7 +174,7 @@ export default function AdminContracts() {
       <ContractModal open={modalOpen} onOpenChange={setModalOpen} contract={editing} clients={clients} onSave={handleSave} />
 
       {downloadTarget && (
-        <div className="absolute -left-[9999px] top-0">
+        <div className="absolute -left-[9999px] top-0" style={{ width: "210mm" }}>
           <ContractTemplate id="contract-template-download" client={downloadTarget.client} contract={downloadTarget.contract} />
         </div>
       )}

@@ -18,7 +18,33 @@ export async function exportElementToPdf(elementId, filename = "documento.pdf", 
   const element = document.getElementById(elementId);
   if (!element) return;
   await waitForImages(element);
-  const canvas = await html2canvas(element, { scale: 2, useCORS: true, backgroundColor: "#ffffff" });
+
+  const host = document.createElement("div");
+  host.style.cssText =
+    "position:fixed;left:-220mm;top:0;width:210mm;background:#ffffff;z-index:0;pointer-events:none;";
+  const clone = element.cloneNode(true);
+  clone.id = `${elementId}-pdf-clone`;
+  clone.style.width = "210mm";
+  clone.style.maxWidth = "210mm";
+  clone.style.margin = "0";
+  host.appendChild(clone);
+  document.body.appendChild(host);
+  await waitForImages(clone);
+
+  let canvas;
+  try {
+    canvas = await html2canvas(clone, {
+      scale: 2,
+      useCORS: true,
+      backgroundColor: "#ffffff",
+      width: clone.scrollWidth,
+      windowWidth: clone.scrollWidth,
+      logging: false,
+    });
+  } finally {
+    host.remove();
+  }
+
   const imgData = canvas.toDataURL("image/png");
   const pdf = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
   const pageWidth = pdf.internal.pageSize.getWidth();
