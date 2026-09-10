@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { LayoutDashboard, Wallet, Users, FileText, LogOut, Package, X, Wrench, ClipboardList, Images, UserPlus, ClipboardPen } from "lucide-react";
+import { LayoutDashboard, Wallet, Users, FileText, LogOut, Package, X, Wrench, ClipboardList, Images, Handshake, UserPlus, ClipboardPen } from "lucide-react";
 import { useAuth } from "@/lib/AuthContext";
 import Logo from "@/components/ra/Logo";
 
@@ -12,6 +12,7 @@ const items = [
   { label: "Contratos", to: "/admin/contratos", icon: FileText },
   { label: "Produtos", to: "/admin/produtos", icon: Package },
   { label: "Banners", to: "/admin/banners", icon: Images },
+  { label: "Parceiros", to: "/admin/parceiros", icon: Handshake },
   { label: "Técnicos", to: "/admin/tecnicos", icon: Wrench },
   { label: "Relatórios", to: "/admin/relatorios", icon: ClipboardList },
   { label: "Cadastrar usuário", to: "/admin/usuarios", icon: UserPlus },

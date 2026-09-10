@@ -37,6 +37,7 @@ const navLinks = [
   { label: "Nossos Geradores", href: "/#geradores", dropdown: true },
   { label: "Áreas de Atuação", href: "/#atuacao" },
   { label: "Sobre Nós", href: "/#sobre", dropdown: true },
+  { label: "Nossos Parceiros", href: "/#parceiros" },
   { label: "Contato", href: "/#contato", dropdown: true },
 ];
 

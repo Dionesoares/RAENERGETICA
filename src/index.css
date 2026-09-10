@@ -47,6 +47,7 @@
   #geradores,
   #atuacao,
   #sobre,
+  #parceiros,
   #contato {
     scroll-margin-top: var(--site-header-height, 7.5rem);
   }

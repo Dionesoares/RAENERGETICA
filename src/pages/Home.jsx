@@ -5,6 +5,7 @@ import ValuesCards from "@/components/ra/ValuesCards";
 import Generators from "@/components/ra/Generators";
 import AreasOfActivity from "@/components/ra/AreasOfActivity";
 import About from "@/components/ra/About";
+import Partners from "@/components/ra/Partners";
 import Contact from "@/components/ra/Contact";
 import Footer from "@/components/ra/Footer";
 import MobileTabBar from "@/components/ra/MobileTabBar";
@@ -20,6 +21,7 @@ export default function Home() {
         <Generators />
         <AreasOfActivity />
         <About />
+        <Partners />
         <Contact />
       </main>
       <Footer />

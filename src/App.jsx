@@ -22,6 +22,7 @@ import AdminClients from '@/pages/AdminClients';
 import AdminContracts from '@/pages/AdminContracts';
 import AdminProducts from '@/pages/AdminProducts';
 import AdminBanners from '@/pages/AdminBanners';
+import AdminPartners from '@/pages/AdminPartners';
 import AdminTechnicians from '@/pages/AdminTechnicians';
 import AdminServiceReports from '@/pages/AdminServiceReports';
 import AdminUsers from '@/pages/AdminUsers';
@@ -61,6 +62,7 @@ const AuthenticatedApp = () => {
           <Route path="contratos" element={<AdminContracts />} />
           <Route path="produtos" element={<AdminProducts />} />
           <Route path="banners" element={<AdminBanners />} />
+          <Route path="parceiros" element={<AdminPartners />} />
           <Route path="tecnicos" element={<AdminTechnicians />} />
           <Route path="relatorios" element={<AdminServiceReports />} />
           <Route path="usuarios" element={<AdminUsers />} />

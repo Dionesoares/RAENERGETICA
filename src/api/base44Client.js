@@ -6,6 +6,7 @@ const TABLES = {
   Contract: "contracts",
   Product: "products",
   Banner: "banners",
+  Partner: "partners",
   Technician: "technicians",
   Task: "tasks",
   Transaction: "transactions",
