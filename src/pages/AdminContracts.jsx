@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { createRoot } from "react-dom/client";
+import { flushSync } from "react-dom";
 import { base44 } from "@/api/base44Client";
 import { Button } from "@/components/ui/button";
 import { Plus, Pencil, Trash2, FileDown } from "lucide-react";
@@ -9,12 +11,30 @@ import { defaultContractText } from "@/lib/contractClauses";
 
 const statusColor = { rascunho: "bg-secondary text-muted-foreground", assinado: "bg-accent/10 text-accent" };
 
+async function downloadContractPdf(client, contract, filename) {
+  const host = document.createElement("div");
+  host.setAttribute("aria-hidden", "true");
+  host.style.cssText = "position:fixed;left:0;top:0;width:210mm;z-index:-1;opacity:0.01;pointer-events:none;";
+  document.body.appendChild(host);
+  const root = createRoot(host);
+  try {
+    flushSync(() => {
+      root.render(
+        <ContractTemplate id="contract-template-download" client={client} contract={contract} />
+      );
+    });
+    await exportElementToPdf("contract-template-download", filename);
+  } finally {
+    root.unmount();
+    host.remove();
+  }
+}
+
 export default function AdminContracts() {
   const [contracts, setContracts] = useState([]);
   const [clients, setClients] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [editing, setEditing] = useState(null);
-  const [downloadTarget, setDownloadTarget] = useState(null);
   const [downloadingId, setDownloadingId] = useState(null);
 
   const load = async () => {
@@ -46,33 +66,33 @@ export default function AdminContracts() {
 
   const handleDownloadPdf = async (c) => {
     const client = clients.find((cl) => cl.id === c.client_id);
-    if (!client) { alert("Cliente do contrato não encontrado."); return; }
-    setDownloadingId(c.id);
-    let content = defaultContractText;
-    if (c.content_url) {
-      try {
-        const res = await fetch(c.content_url);
-        content = await res.text();
-      } catch {
-        content = defaultContractText;
-      }
+    if (!client) {
+      alert("Cliente do contrato não encontrado.");
+      return;
     }
-    setDownloadTarget({ contract: { ...c, content }, client });
+    if (downloadingId) return;
+    setDownloadingId(c.id);
+    try {
+      let content = defaultContractText;
+      if (c.content_url) {
+        try {
+          const res = await fetch(c.content_url);
+          if (res.ok) content = await res.text();
+        } catch {
+          content = defaultContractText;
+        }
+      }
+      await downloadContractPdf(
+        client,
+        { ...c, content },
+        `contrato-${c.contract_number || c.id}.pdf`
+      );
+    } catch {
+      alert("Não foi possível baixar o contrato. Tente novamente.");
+    } finally {
+      setDownloadingId(null);
+    }
   };
-
-  useEffect(() => {
-    if (!downloadTarget) return;
-    let cancelled = false;
-    requestAnimationFrame(() => {
-      requestAnimationFrame(async () => {
-        if (cancelled) return;
-        await exportElementToPdf("contract-template-download", `contrato-${downloadTarget.contract.contract_number}.pdf`);
-        setDownloadTarget(null);
-        setDownloadingId(null);
-      });
-    });
-    return () => { cancelled = true; };
-  }, [downloadTarget]);
 
   return (
     <div>
@@ -110,6 +130,9 @@ export default function AdminContracts() {
                   <Pencil className="h-4 w-4" />
                 </button>
                 <button
+                  type="button"
+                  title="Baixar documento"
+                  aria-label="Baixar documento"
                   onClick={() => handleDownloadPdf(c)}
                   disabled={downloadingId === c.id}
                   className="text-primary hover:text-accent disabled:opacity-40"
@@ -154,6 +177,9 @@ export default function AdminContracts() {
                       <Pencil className="inline h-4 w-4" />
                     </button>
                     <button
+                      type="button"
+                      title="Baixar documento"
+                      aria-label="Baixar documento"
                       onClick={() => handleDownloadPdf(c)}
                       disabled={downloadingId === c.id}
                       className="mr-2 text-primary hover:text-accent disabled:opacity-40"
@@ -172,12 +198,6 @@ export default function AdminContracts() {
       )}
 
       <ContractModal open={modalOpen} onOpenChange={setModalOpen} contract={editing} clients={clients} onSave={handleSave} />
-
-      {downloadTarget && (
-        <div className="absolute -left-[9999px] top-0" style={{ width: "210mm" }}>
-          <ContractTemplate id="contract-template-download" client={downloadTarget.client} contract={downloadTarget.contract} />
-        </div>
-      )}
     </div>
   );
 }

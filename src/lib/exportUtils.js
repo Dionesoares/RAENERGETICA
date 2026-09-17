@@ -193,7 +193,7 @@ function buildPaginatedPages(element) {
 
 export async function exportElementToPdf(elementId, filename = "documento.pdf", { fitToOnePage = false } = {}) {
   const element = document.getElementById(elementId);
-  if (!element) return;
+  if (!element) throw new Error("Documento não encontrado para exportação.");
   await waitForImages(element);
 
   const host = document.createElement("div");
