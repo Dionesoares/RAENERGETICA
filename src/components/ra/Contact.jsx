@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { MapPin, Mail, Phone, MessageCircle } from "lucide-react";
-import { waQuoteLink } from "@/lib/whatsapp";
+import { waQuoteLink, waLinkTo } from "@/lib/whatsapp";
 import { COMPANY_ADDRESS, COMPANY_EMAILS } from "@/lib/company";
 import BrazilCoverageMap from "./BrazilCoverageMap";
 
@@ -65,8 +65,8 @@ export default function Contact() {
                   <div>
                     <div className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Comercial</div>
                     <p className="mt-1 font-medium text-foreground">
-                      <a href="tel:+5563999938060" className="hover:text-accent">(63) 99993-8060</a><br />
-                      <a href="tel:+5563992282251" className="hover:text-accent">(63) 99228-2251</a>
+                      <a href={waLinkTo("5563999938060")} target="_blank" rel="noopener noreferrer" className="hover:text-accent">(63) 99993-8060</a><br />
+                      <a href={waLinkTo("5563992282251")} target="_blank" rel="noopener noreferrer" className="hover:text-accent">(63) 99228-2251</a>
                     </p>
                   </div>
                 </div>

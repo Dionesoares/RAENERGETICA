@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { MapPin, Mail, Phone, MessageCircle, Instagram, CreditCard, Barcode, ShieldCheck } from "lucide-react";
 import Logo from "./Logo";
-import { waLink } from "@/lib/whatsapp";
+import { waLink, waLinkTo } from "@/lib/whatsapp";
 import { COMPANY_ADDRESS, COMPANY_EMAILS } from "@/lib/company";
 import { openLgpdPopup } from "./LgpdPopup";
 
@@ -70,8 +70,14 @@ export default function Footer() {
                 <Mail className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
                 <a href={`mailto:${COMPANY_EMAILS.dallessandro}`} className="hover:text-white">{COMPANY_EMAILS.dallessandro}</a>
               </li>
-              <li className="flex items-center gap-2"><Phone className="h-4 w-4 shrink-0 text-accent" /> (63) 99993-8060</li>
-              <li className="flex items-center gap-2"><Phone className="h-4 w-4 shrink-0 text-accent" /> (63) 99228-2251</li>
+              <li className="flex items-center gap-2">
+                <Phone className="h-4 w-4 shrink-0 text-accent" />
+                <a href={waLinkTo("5563999938060")} target="_blank" rel="noopener noreferrer" className="hover:text-white">(63) 99993-8060</a>
+              </li>
+              <li className="flex items-center gap-2">
+                <Phone className="h-4 w-4 shrink-0 text-accent" />
+                <a href={waLinkTo("5563992282251")} target="_blank" rel="noopener noreferrer" className="hover:text-white">(63) 99228-2251</a>
+              </li>
             </ul>
           </div>
 

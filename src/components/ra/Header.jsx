@@ -4,6 +4,7 @@ import { Phone, Menu, X, ChevronDown } from "lucide-react";
 import Logo from "./Logo";
 import AccessLoginModal from "@/components/auth/AccessLoginModal";
 import { COMPANY_EMAILS } from "@/lib/company";
+import { waLinkTo } from "@/lib/whatsapp";
 
 const contacts = [
   {
@@ -18,8 +19,9 @@ const contacts = [
   },
   {
     value: "(63) 99993-8060",
-    href: "tel:+5563999938060",
+    href: waLinkTo("5563999938060"),
     label: "contato comercial",
+    external: true,
   },
   {
     value: COMPANY_EMAILS.dallessandro,
@@ -28,8 +30,9 @@ const contacts = [
   },
   {
     value: "(63) 99228-2251",
-    href: "tel:+5563992282251",
+    href: waLinkTo("5563992282251"),
     label: "contato comercial",
+    external: true,
   },
 ];
 
@@ -87,6 +90,7 @@ export default function Header() {
                 <a
                   key={item.value}
                   href={item.href}
+                  {...(item.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                   className="flex min-w-0 flex-1 flex-col justify-center border-r border-black/10 px-2.5 py-2.5 hover:bg-white/60 xl:px-3"
                 >
                   <span className="truncate text-[13px] font-bold leading-tight text-primary 2xl:text-[15px]">{item.value}</span>
@@ -115,7 +119,12 @@ export default function Header() {
 
         <div className="flex gap-4 overflow-x-auto px-4 py-2 xl:hidden">
           {contacts.map((item) => (
-            <a key={item.value} href={item.href} className="shrink-0">
+            <a
+              key={item.value}
+              href={item.href}
+              {...(item.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+              className="shrink-0"
+            >
               <span className="block text-xs font-bold text-primary">{item.value}</span>
               <span className="block text-[10px] text-[#6b6b6b]">{item.label}</span>
             </a>
